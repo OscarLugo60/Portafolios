@@ -1,0 +1,31 @@
+---
+import ExperienceItem from "./ExperienceItem.astro";
+const EXPERIENCE = [
+    {
+        date: 'Agosto 2021',
+        title: 'Desarrollador Backend',
+        subtitle: 'Empresas Grupo el Paso',
+        description:
+            'Miembro del equipo de desarrollador de sistema para el control de cirugías en una clínica con varios quirófanos y cirujanos',
+        link: '#',
+    },
+    {
+        date: 'Noviembre 2021 - Actualidad',
+        title: 'Coordinador del departamento de sistemas',
+        subtitle: 'Centro Médico Docente el Paso',
+        description:
+            'Encargado del área de sistemas, el mantenimiento de servidores, reparación de equipos informáticos y configuración de redes',
+        link: '#',
+    },
+]
+---
+<ol class="relative border-s-2 border-[#027373] dark:border-gray-700 mt-5">
+    {
+        EXPERIENCE.map(experience => (
+            <li class="mb-10 ms-4">
+                <ExperienceItem {... experience} />
+            </li>
+        ))
+    }               
+</ol>
+

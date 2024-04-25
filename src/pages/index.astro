@@ -1,0 +1,83 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LinkedIn from '../icons/LinkedIn.astro';
+import GitHub from '../icons/GitHub.astro';
+import Whatsapp from '../icons/Whatsapp.astro';
+import SocialPill from '../components/SocialPill.astro';
+import EMail from '../components/EMail.astro';
+import About from '../components/About.astro';
+import Photo from '../components/Photo.astro';
+import MailIcon from '../icons/Mail.astro';
+import Mail from '../components/MailDir.astro';
+import Experience from '../components/Experience.astro';
+import Project from '../components/Project.astro';
+import Tecnology from '../components/Tecnology.astro';
+import Contact from '../components/Contact.astro';
+---
+
+<Layout
+	title="Porfolio de Oscar Lugo - Desarrollador FullStack y Editor Audiovisual"
+	description="Contrata a Oscar Lugo para desarrollar backend con Python y Django, frontend con Astro y Tailwind o para edición de contenido audiovisual"	
+>
+	<main>
+		<div id="index" class="flex flex-col justify-center items-center h-screen min-w-full px-4">
+			<section class="md:w-6/12 py-10">
+				<h1 class="lg:w-full text-[#5FCDD9] text-4xl md:text-6xl font-semibold flex justify-left pb-4">Oscar Lugo</h1>
+				<h2 class="lg:w-full text-[#027373] text-md md:text-2xl flex justify-left">Desarrollador FullStack y Editor Audiovisual</h2>
+
+				<nav class="flex flex-wrap gap-6 mt-8 max-w-60">
+					<EMail href="#">
+						<MailIcon class="size-6" />
+						<Mail />
+					</EMail>
+					<SocialPill href="https://www.linkedin.com/in/oscar-lugo-a03924190/" target="_blank">
+						<LinkedIn class="size-6" />
+					</SocialPill>
+					<SocialPill href="https://github.com/OscarLugo60" target="_blank">
+						<GitHub class="size-6 text-[#04BFAD]" />
+					</SocialPill>
+					<SocialPill href="https://api.whatsapp.com/send?phone=ff584141111521" target="_blank">
+						<Whatsapp class="size-6" />
+					</SocialPill>
+				</nav>
+			</section>
+		</div>
+		<div class="flex flex-col justify-center items-center gap-y-5 md:gap-y-10 mt-10 md:mt-28">
+			<h1 class="text-2xl md:text-7xl text-[#5FCDD9] font-semibold">Experiencia</h1>
+			<section class="flex flex-col justify-center md:w-5/12 px-5 md:px-0 gap-y-5">
+				<Experience />
+			</section>
+		</div>
+		
+		<div id="projects" class="flex flex-col gap-y-10 justify-center items-center px-5 md:px-0 my-10 md:my-28 min-w-2/3">
+			<h1 class="text-2xl md:text-7xl text-[#5FCDD9] font-semibold">Proyectos</h1>
+			<section class="flex">
+				<img class="w-2/5 max-h-96 hidden md:block" src="/img/coding laptop.webp" alt="Projects">
+				<div class="w-full flex flex-col gap-y-6">
+					<Project />
+				</div>
+			</section>
+		</div>
+		<div id="about" class="flex flex-col items-center justify-center">
+			<h1 class="text-2xl md:text-7xl text-[#5FCDD9] font-semibold">Sobre mí</h1>
+			<section class="flex flex-col md:flex-row items-center justify-center gap-10">
+				<About />
+				<Photo />
+			</section>
+		</div>
+		<div class="flex flex-col gap-x-20 justify-center items-center md:ml-12 my-28">
+			<h1 class="text-2xl sm:text-5xl md:text-7xl text-[#5FCDD9] font-semibold">Tecnologías</h1>
+			<div class="flex flex-col px-5 md:px-0 md:w-4/5">
+				<section class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-5 w-full mt-6 md:mt-16 py-5 p-5 md:p-12 border border-[#04BF9D] rounded-lg shadow-lg hover:shadow-md shadow-[#04BF9D] transition">
+					<Tecnology />
+				</section>
+			</div>
+		</div>
+		<div id="contact" class="flex flex-col justify-center items-center gap-y-6 px-5 md:pl-28 pt-7 md:pt-10 pb-5 min-w-full">
+			<div class="flex flex-col m:w-2/5">
+				<h1 class="text-2xl sm:text-5xl md:text-7xl text-[#5FCDD9] font-semibold">Contacto</h1>
+			</div>
+			<Contact />
+		</div>
+	</main>
+</Layout>

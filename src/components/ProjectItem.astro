@@ -1,0 +1,160 @@
+---
+import GitHub from '../icons/GitHub.astro'
+import PythonIcon from '../icons/PythonIcon.astro'
+import DjangoIcon from '../icons/DjangoIcon.astro'
+import JSIcon from '../icons/JSIcon.astro'
+import MySQLIcon from '../icons/MySQL.astro'
+import PostgreSQLIcon from '../icons/Postgres.astro'
+import BootstrapIcon from '../icons/Bootstrap.astro'
+import TailwindIcon from '../icons/TailwindIcon.astro'
+import AstroIcon from '../icons/AstroIcon.astro'
+import NginxIcon from '../icons/NginxIcon.astro'
+import SvelteIcon from '../icons/SvelteIcon.astro'
+import WebIcon from '../icons/WebIcon.astro'
+
+interface Props{
+    id: number
+    title: string
+    description: string
+    link?: string
+    img?: string[]
+    tech?: string[]
+    github?: string
+}
+const { id, title, description, link, img, github, tech } = Astro.props
+
+var i = 0;
+---
+
+<div class="absolute w-4 h-4 bg-[#027373] rounded-full mt-1.5 -start-[9px] border border-[#027373]">
+
+</div>
+<h3 
+    class="text-lg font-semibold text-[#027373] dark:text-white"
+    >
+    {title}
+</h3>
+<p
+    class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400"
+    >
+    {description}
+</p>
+<button
+    data-modal-target={`default-modal-${id}`}
+    data-modal-toggle={`default-modal-${id}`}
+    type="button"
+    class="inline-flex items-center px-4 py-2 text-sm font-medium text-[#5FCDD9] bg-[#027373] border border-[#04BF9D] rounded-lg hover:bg-[#172026] hover:text-[#04BF9D] focus:z-10 focus:ring-4 focus:outline-none focus:ring-[#04BF9D] focus:text-[#04BF9D]  transition"
+    >
+    Saber más
+    <svg
+        class="w-3 h-3 ms-2 rtl:rotate-180"
+        aria-hidden="true"
+        fill="none"
+        viewBox="0 0 14 10"
+        ><path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M1 5h12m0 0L9 1m4 4L9 9"
+        />
+    </svg>
+</button >
+
+<!-- Main modal -->
+<div id={`default-modal-${id}`} tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-2 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-[#172026] rounded-lg shadow-xl">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-2 md:p-2 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-white">
+                    {title}
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide={`default-modal-${id}`}>
+                    <svg class="w-3 h-3" aria-hidden="true" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Cerrar</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-2 md:p-3 space-y-4 flex flex-col">
+                
+            <!-- Carousel wrapper -->
+                <div id="indicators-carousel" class="relative w-full" data-carousel="static">
+                    <!-- Carousel wrapper -->
+                    <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+                        <!-- Item 1 -->
+
+                        {
+                            img.map(item => (
+                                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                    <img src={item} class="m-x-auto" alt="...">
+                                </div>
+                            ))
+                        }
+                    </div>
+                    <!-- Slider indicators -->
+                    <div class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2">
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 5" data-carousel-slide-to="4"></button>
+                    </div>
+                    <!-- Slider controls -->
+                    <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+                        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                            </svg>
+                            <span class="sr-only">Previous</span>
+                        </span>
+                    </button>
+                    <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+                        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                            </svg>
+                            <span class="sr-only">Next</span>
+                        </span>
+                    </button>
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <h5 class="mb-2 text-xl font-bold tracking-tight text-[#5FCDD9] dark:text-white">Tecnologías</h5>
+                    <div class="flex flex-wrap gap-2 items-center justify-center">
+                        {tech.map(item => (
+                            item === "Python" ? <PythonIcon class="size-8" /> : null
+                            || item === "Django" ? <DjangoIcon class="size-6" /> : null
+                            || item === "JavaScript" ? <JSIcon class="size-6" /> : null
+                            || item === "MySQL" ? <MySQLIcon class="size-6" /> : null
+                            || item === "PostgreSQL" ? <PostgreSQLIcon class="size-6" /> : null
+                            || item === "Bootstrap" ? <BootstrapIcon class="size-6" /> : null
+                            || item === "Tailwind" ? <TailwindIcon class="size-6" /> : null
+                            || item === "Astro" ? <AstroIcon class="size-6" /> : null
+                            || item === "Nginx" ? <NginxIcon class="size-6" /> : null
+                            || item === "Svelte" ? <SvelteIcon class="size-6" /> : null
+                        ))}
+                    </div>    
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="flex items-center p-2 md:p-3 border-t border-gray-200 rounded-b dark:border-gray-600">
+                {
+                    link.length > 0 && (
+                    <a href={link} target="_blank" data-modal-hide={`default-modal-${id}`} type="button" class="text-white bg-[#027373] hover:bg-[#04BFAD] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-center transition flex items-center justify-center gap-3">
+                        <WebIcon class="size-6 text-[#5FCDD9]" />
+                        Visitar Sitio
+                    </a>
+                    )
+                }
+                <a href={github} target="_blank" data-modal-hide={`default-modal-${id}`} type="button" class="py-2 px-5 ms-3 text-sm font-medium text-white focus:outline-none bg-[#027373] rounded-lg hover:bg-[#04BF9D] focus:z-10 focus:ring-4 focus:ring-gray-100 flex items-center justify-center gap-3 transition">
+                    <GitHub class="size-6 text-[#5FCDD9]"/>
+                    Ver GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+  

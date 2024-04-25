@@ -1,0 +1,62 @@
+---
+import ProjectItem from "./ProjectItem.astro";
+const PROJECT = [
+    {
+        id: 1,
+        title: 'Sistema de Control de Cirugías',
+        description:
+            'Una herramienta informática que permite a las clínicas gestionar sus procedimientos quirúrgicos. El sistema registra la fecha, hora, médico encargado y quirófano de cada cirugía. Esto ayuda a garantizar que las cirugías se realicen en el momento adecuado y en el lugar adecuado, lo que mejora la seguridad del paciente.',
+        link: '',
+        github: 'https://github.com/OscarLugo60/Cirugias',
+        img: [
+            'img/ControlCirugias/Login.webp',
+            'img/ControlCirugias/Cirugias.webp',
+            'img/ControlCirugias/Graficas.webp',
+            'img/ControlCirugias/Registro.webp',
+        ],
+        tech: ['Python', 'Django', 'JavaScript', 'PostgreSQL', 'Nginx']
+    },
+    {
+        id: 2,
+        title: 'Gestor de Tareas Administrativas',
+        description:
+            'Una WPA para una empresa con el objetivo de asignar tareas a sus gerentes y controlar la efectividad de su realización.',
+        link: '',
+        github: 'https://github.com/OscarLugo60/work_app.git',
+        img: [
+            'img/Tareas/Login.webp',
+            'img/Tareas/ListaTareas.webp',
+            'img/Tareas/CrearTarea.webp',
+            'img/Tareas/DepartamentosUsuarios.webp',
+            'img/Tareas/Opciones.webp',
+            'img/Tareas/Graficas.webp',
+        ],
+        tech: ['Python', 'Django', 'JavaScript', 'MySQL', 'Svelte', 'Bootstrap' ]
+    },
+    {
+        id: 3,
+        title: 'Desarrollo de Páginas Web',
+        description:
+            'Páginas web para las clínicas Centro Médico Docente el Paso y Policlínica Altos Mirandinos con integración de un buscador de doctores asincrono',
+        link: 'https://centromedicodocenteelpaso.com/',
+        github: 'https://github.com/OscarLugo60/web-cmdep',
+        img: [
+            'img/PaginaWeb/InicioCMDEP.webp',
+            'img/PaginaWeb/DirectorioMedico.webp',
+            'img/PaginaWeb/QuienesSomos.webp',
+            'img/PaginaWeb/Contacto.webp',
+            'img/PaginaWeb/Servicios.webp',
+        ],
+        tech: ['Python', 'Django', 'JavaScript', 'PostgreSQL', 'Astro', 'Tailwind']
+    },
+]
+---
+<ol class="relative mt-5 border-s border-[#027373] dark:border-gray-700">
+    {
+        PROJECT.map(project => (
+            <li class="mb-10 ms-4 list-none">
+                <ProjectItem {... project} />
+            </li>
+        ))
+    }               
+</ol>

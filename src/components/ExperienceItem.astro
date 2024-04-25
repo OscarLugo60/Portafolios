@@ -1,0 +1,18 @@
+---
+interface Props{
+    title: string
+    subtitle: string
+    description: string
+    link?: string
+    date: string
+}
+ const { title, subtitle, description, link, date } = Astro.props
+---
+
+<div class="absolute w-4 h-4 bg-[#027373] rounded-full mt-1.5 -start-[9px] border border-[#027373]"></div>
+        <time class="mb-1 text-sm font-normal leading-none text-[#5FCDD9] dark:text-gray-500">{date}</time>
+        <h3 class="text-lg font-semibold text-[#027373] dark:text-white">{title}</h3>
+        <h4 class="text-md font-semibold text-[#027373] dark:text-white">{subtitle}</h3>
+        <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">{description}</p>
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+  </svg></a>
