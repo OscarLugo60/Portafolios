@@ -1,0 +1,12 @@
+---
+const { title, url, image, description, pubDate, slug } = Astro.props
+---
+
+<article class="border border-[#027373] relative rounded-lg p-4 w-[200px] md:w-[300px] flex flex-col items-center pb-6">
+    <img transition:name={slug} class="md:w-full rounded md:h-[200px]" src={image.url} alt={image.alt}>
+    <a href={url}>
+        <h2 class="text-md md:text-xl text-[#5FCDD9] font-semibold">{title}</h2>
+    </a>
+    <p class="text-gray-500 text-sm">{description}</p>
+    <p class="text-gray-500 text-xs mt-2 md:absolute md:bottom-0 md:-right-10">Publicado el: {pubDate.slice(0, 10)}</p>
+</article>

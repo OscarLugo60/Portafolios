@@ -10,12 +10,15 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/preact": "^3.5.3",
+    "@astrojs/rss": "^4.0.7",
     "@astrojs/sitemap": "^3.1.1",
     "@astrojs/tailwind": "^5.1.0",
     "@emailjs/browser": "^4.3.3",
     "@fontsource-variable/urbanist": "^5.0.19",
     "astro": "^4.0.9",
-    "flowbite": "^2.3.0"
+    "flowbite": "^2.3.0",
+    "preact": "^10.24.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.17",
