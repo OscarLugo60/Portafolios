@@ -29,8 +29,8 @@ const { frontmatter } = Astro.props;
 	</script>
 	<body>
 		<Header />
-		<div class="flex flex-col gap-y-10 justify-center items-center px-5 md:px-0 my-10 md:my-28 min-w-2/3 w-5/6 text-[#5FCDD9]">
-            <img transition:name={frontmatter.slug} class="w-1/2" src={frontmatter.image.url} alt={frontmatter.image.alt}>
+		<div class="flex flex-col gap-y-10 justify-center items-center px-5 md:px-0 my-20 md:my-28 min-w-2/3 w-3/4 text-[#5FCDD9] border border-gray-600 rounded-lg py-5 ml-5 shadow-lg shadow-gray-600">
+            <img transition:name={frontmatter.slug} class="aspect-video" src={frontmatter.image.url} alt={frontmatter.image.alt}>
             <h1 class="text-3xl text-[#5FCDD9] font-semibold">{frontmatter.title}</h1>
             <slot />
         </div>
@@ -63,10 +63,20 @@ const { frontmatter } = Astro.props;
         list-style: circle;
         padding-left: 200px;
         padding-right: 200px;
+		text-align: left;
     }
 	@media(prefers-reduced-motion: reduce){
 		html{
 			scroll-behavior: auto;
+		}
+	}
+	pre{
+		max-width: 90%;
+	}
+	@media (max-width: 768px) {
+		ul{
+			padding-left: 50px;
+			padding-right: 50px;
 		}
 	}
 </style>
