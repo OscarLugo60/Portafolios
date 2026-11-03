@@ -2,16 +2,18 @@
 import Layout from "../layouts/Layout.astro";
 import Tags from "../components/Tags.astro";
 import BlogPost from "../components/BlogPost.astro";
-const allPost = await Astro.glob('../pages/posts/*.md');
+import { getSortedPosts } from "../utils/posts";
+
+const allPost = await getSortedPosts();
 ---
 
-<Layout title="Porfolio de Oscar Lugo - Blog"
-    description="Blog de Oscar Lugo">
-    <div class="flex flex-col gap-y-10 justify-center items-center text-center px-5 md:px-0 my-20 md:my-28 w-4/5 m-auto">
-        <h1 class="text-lg md:text-5xl text-[#5FCDD9] font-semibold">Artículos del Blog</h1>
+<Layout title="Portafolio de Oscar Lugo - Blog"
+    description="Artículos de Oscar Lugo sobre desarrollo backend con Python, Django y PostgreSQL">
+    <div class="flex flex-col gap-y-10 justify-center items-center text-center px-5 md:px-0 my-24 md:my-28 w-full md:w-4/5 m-auto">
+        <h1 class="text-2xl md:text-5xl text-[#5FCDD9] font-semibold">Artículos del Blog</h1>
         <div class="flex gap-y-10 justify-center items-center text-center px-5 md:px-0">
-            <div class="grid grid-cols-1 gap-10">
-                {allPost.map((post) => <BlogPost title={post.frontmatter.title} description={post.frontmatter.description} url={post.url} image={post.frontmatter.image} pubDate={post.frontmatter.pubDate} slug={post.frontmatter.slug}/>)}
+            <div class="grid grid-cols-1 gap-10 justify-items-center">
+                {allPost.map((post) => <BlogPost title={post.data.title} description={post.data.description} url={`/posts/${post.slug}/`} image={post.data.image} pubDate={post.data.pubDate} slug={post.slug}/>)}
             </div>
                 <Tags />
         </div>

@@ -1,13 +1,13 @@
 ---
 import FilterIcon from "../icons/FilterIcon.astro";
-import Hamburguer from "./Hamburguer.astro";
 import ArrowDownIcon from "../icons/ArrowDown.astro";
-const allPosts = await Astro.glob('../pages/posts/*.md');
-const tags = [...new Set(allPosts.map((post) => post.frontmatter.tags).flat())];
+import { getSortedPosts, getUniqueTags, tagSlug } from "../utils/posts";
+
+const tags = getUniqueTags(await getSortedPosts());
 ---
 <div class="flex flex-col fixed right-5 top-20 md:hidden">
     <input type="checkbox" id="menu-toggle" class="menu-toggle">
-    <label for="menu-toggle" class="pointer absolute right-0 top-1.5 border border-[#04BF9D] p-2 rounded flex gap-1 items-center justify-center">
+    <label for="menu-toggle" aria-label="Filtrar por categoría" class="cursor-pointer absolute right-0 top-1.5 border border-[#04BF9D] p-2 rounded flex gap-1 items-center justify-center bg-[#172026]">
     <FilterIcon /> <ArrowDownIcon class="size-3" />
     </label>
 
@@ -15,54 +15,31 @@ const tags = [...new Set(allPosts.map((post) => post.frontmatter.tags).flat())];
     <ul class="flex flex-col gap-y-2 p-5 list-none text-center">
         <li><a class="text-xs md:text-sm text-[#5FCDD9] font-semibold rounded-sm md:rounded-lg w-auto md:w-[120px] px-2 pb-2 pt-1 hover:bg-[#29353d] hover:text-[#04BF9D] transition capitalize text-pretty" href="/blog">Todos</a></li>
         {tags.map((tag) => (
-            <li><a class="text-xs md:text-sm text-[#5FCDD9] font-semibold rounded-sm md:rounded-lg w-auto md:w-[120px] px-2 pb-2 pt-1 hover:bg-[#29353d] hover:text-[#04BF9D] transition capitalize text-pretty" href={`/tags/${tag}`}>{tag}</a></li>
+            <li><a class="text-xs md:text-sm text-[#5FCDD9] font-semibold rounded-sm md:rounded-lg w-auto md:w-[120px] px-2 pb-2 pt-1 hover:bg-[#29353d] hover:text-[#04BF9D] transition capitalize text-pretty" href={`/tags/${tagSlug(tag)}/`}>{tag}</a></li>
             )
         )}
     </ul>
     </nav>
 </div>
-<!-- <div class="relative">
-    <button id="menu-toggle" class="absolute"><FilterIcon /></button>
-    <nav>
-        <ul>
-            <li><a href="/blog">Todos</a></li>
-            {tags.map((tag) => (
-                <li><a href={`/tags/${tag}`}>{tag}</a></li>
-                )
-            )}
-        </ul>
-    </nav>
-</div> -->
 <div class="flex flex-col w-1/6 fixed right-5 top-10 md:top-0 gap-3 justify-center items-center text-center p-5 md:px-0 my-10 md:my-28 border border-[#04BF9D] rounded-lg shadow-lg shadow-[#04BF9D] hidden md:flex">
     <h3 class="text-sm md:text-lg text-[#5FCDD9] font-semibold">Categorías:</h3>
     <a class="text-xs md:text-sm text-[#5FCDD9] font-semibold rounded-sm md:rounded-lg w-auto md:w-[120px] px-2 pb-2 pt-1 hover:bg-[#29353d] hover:text-[#04BF9D] transition capitalize" href="/blog">Todos</a>
     {tags.map((tag) => (
-        <a class="text-xs md:text-sm text-[#5FCDD9] font-semibold rounded-sm md:rounded-lg w-auto md:w-[120px] px-2 pb-2 pt-1 hover:bg-[#29353d] hover:text-[#04BF9D] transition capitalize text-pretty" href={`/tags/${tag}`}>{tag}</a>
+        <a class="text-xs md:text-sm text-[#5FCDD9] font-semibold rounded-sm md:rounded-lg w-auto md:w-[120px] px-2 pb-2 pt-1 hover:bg-[#29353d] hover:text-[#04BF9D] transition capitalize text-pretty" href={`/tags/${tagSlug(tag)}/`}>{tag}</a>
         )
     )}
 </div>
 
 <style>
-    .menu-toggle {
+.menu-toggle {
     display: none;
 }
 
-.menu-button span {
-  display: block;
-  height: 3px;
-  width: 25px;
-  margin: 5px auto;
-  transition: all 0.3s ease-in-out;
-  background: #333;
-}
-
 .menu {
-  display: none;
-  /* Estilos para el menú */
+    display: none;
 }
 
 .menu-toggle:checked ~ .menu {
-  display: block;
-  /* Estilos para cuando el menú está abierto */
+    display: block;
 }
 </style>

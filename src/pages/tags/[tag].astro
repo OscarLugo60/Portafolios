@@ -2,30 +2,26 @@
 import Layout from '../../layouts/Layout.astro';
 import BlogPost from '../../components/BlogPost.astro';
 import Tags from '../../components/Tags.astro';
+import { getSortedPosts, getUniqueTags, tagSlug } from '../../utils/posts';
 
 export async function getStaticPaths() {
-    const allPost = await Astro.glob('../posts/*.md');
-    const uniqueTags = [...new Set(allPost.map((post) => post.frontmatter.tags).flat())];
+    const allPost = await getSortedPosts();
 
-    return uniqueTags.map((tag) => {
-        const filteredPosts = allPost.filter((post) => post.frontmatter.tags.includes(tag));
-        return {
-            params: { tag },
-            props: { posts: filteredPosts },
-        };
-    });
+    return getUniqueTags(allPost).map((tag) => ({
+        params: { tag: tagSlug(tag) },
+        props: { tag, posts: allPost.filter((post) => post.data.tags.includes(tag)) },
+    }));
 }
 
-const { tag } = Astro.params;
-const { posts } = Astro.props;
+const { tag, posts } = Astro.props;
 ---
-<Layout title={tag}
-    description={tag}>
-    <div class="flex flex-col gap-y-10 justify-center items-center text-center px-5 md:px-0 my-20 md:my-28 w-4/5 m-auto">
-        <h1 class="text-xl md:text-5xl text-[#5FCDD9] font-semibold flex flex-col">Artículos sobre: <span>{tag}</span></h1>
+<Layout title={`Artículos sobre ${tag} | Oscar Lugo`}
+    description={`Artículos de Oscar Lugo sobre ${tag}`}>
+    <div class="flex flex-col gap-y-10 justify-center items-center text-center px-5 md:px-0 my-24 md:my-28 w-full md:w-4/5 m-auto">
+        <h1 class="text-2xl md:text-5xl text-[#5FCDD9] font-semibold flex flex-col">Artículos sobre: <span>{tag}</span></h1>
         <div class="flex gap-y-10 justify-center items-center text-center px-5 md:px-0">
-            <div class="grid grid-cols-1 gap-10">
-                {posts.map((post) => <BlogPost title={post.frontmatter.title} description={post.frontmatter.description} url={post.url} image={post.frontmatter.image} pubDate={post.frontmatter.pubDate} slug={post.frontmatter.slug}/>)}
+            <div class="grid grid-cols-1 gap-10 justify-items-center">
+                {posts.map((post) => <BlogPost title={post.data.title} description={post.data.description} url={`/posts/${post.slug}/`} image={post.data.image} pubDate={post.data.pubDate} slug={post.slug}/>)}
             </div>
                 <Tags />
         </div>

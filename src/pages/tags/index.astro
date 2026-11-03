@@ -1,14 +1,15 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-const allPosts = await Astro.glob('../posts/*.md');
-const tags = [...new Set(allPosts.map((post) => post.frontmatter.tags).flat())];
+import { getSortedPosts, getUniqueTags, tagSlug } from "../../utils/posts";
+
+const tags = getUniqueTags(await getSortedPosts());
 ---
 
-<Layout title="Porfolio de Oscar Lugo - Tags"
-    description="Tags del blog">
-    <div class="flex gap-8 justify-center items-center text-center px-5 md:px-0 my-10 md:my-28">
+<Layout title="Portafolio de Oscar Lugo - Tags"
+    description="Categorías del blog de Oscar Lugo">
+    <div class="flex flex-wrap gap-8 justify-center items-center text-center px-5 md:px-0 my-24 md:my-28">
         {tags.map((tag) => (
-            <p class="text-md text-[#5FCDD9] font-semibold border border-[#04BF9D] rounded-lg w-[150px] px-2 pb-2 pt-1 hover:bg-[#172026] hover:text-[#04BF9D] transition"><a href={`/tags/${tag}`}>{tag}</a></p>
+            <a class="text-md text-[#5FCDD9] font-semibold border border-[#04BF9D] rounded-lg w-[150px] px-2 pb-2 pt-1 hover:bg-[#29353d] hover:text-[#04BF9D] transition" href={`/tags/${tagSlug(tag)}/`}>{tag}</a>
         )
     )}
     </div>

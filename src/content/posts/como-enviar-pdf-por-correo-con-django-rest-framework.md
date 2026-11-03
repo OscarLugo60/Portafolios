@@ -1,16 +1,14 @@
 ---
-layout: ../../layouts/MarkdownPostLayout.astro
-title: 'Cómo envíar un PDF por Correo Electrónico con Django Rest Framework'
-pubDate: 2024-09-25
-description: 'Paso a paso para generar un pdf con weasy print y enviarlo por correo electrónico'
+title: 'Cómo enviar un PDF por Correo Electrónico con Django Rest Framework'
+pubDate: 2025-10-07
+description: 'Paso a paso para generar un PDF con WeasyPrint y enviarlo por correo electrónico'
 author: 'Oscar Lugo'
 image: 
-    url: 'https://db0dce98.rocketcdn.me/es/files/2020/10/illu_email_python_blog-08-1024x404.png'
-    alt: 'Logo de Django sobre codigo python'
+    url: '/img/posts/como-enviar-pdf-por-correo-con-django-rest-framework.svg'
+    alt: 'Portada: Cómo enviar un PDF por correo con Django REST Framework'
 tags: ["django", "pdf", "email"]
 slug: 'como-enviar-pdf-por-correo-con-django-rest-framework'
 ---
-# Guía Completa: Envío de PDF por Correo Electrónico con Django REST Framework
 ## Introducción
 
 Esta guía explica paso a paso cómo crear una vista en Django REST Framework que reciba un ID, consulte un registro en la base de datos, genere un archivo PDF y lo envíe por correo electrónico.
@@ -42,9 +40,9 @@ mi_proyecto/
 
 ## Implementación paso a paso
 
- ### 1. Configurar el modelo
- Primero, asegúrate de tener un modelo en tu aplicación. Por ejemplo:
- 
+### 1. Configurar el modelo
+Primero, asegúrate de tener un modelo en tu aplicación. Por ejemplo:
+
 ```python
 # mi_app/models.py
 from django.db import models

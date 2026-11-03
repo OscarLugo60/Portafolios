@@ -1,86 +1,51 @@
 ---
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+import Layout from "./Layout.astro";
 import Tags from "../components/Tags.astro";
+import { formatDate } from "../utils/posts";
 
-import { ViewTransitions } from "astro:transitions";
-const { frontmatter } = Astro.props;
+const { frontmatter, slug } = Astro.props;
 ---
-<!doctype html>
-<html lang="es">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content={frontmatter.description} />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/webp" href="/img/Avatar.webp" />
-		<meta name="generator" content={Astro.generator} />
-		<link rel="sitemap" href="/sitemap-index.xml" />
-		<title>{frontmatter.title}</title>
-		<ViewTransitions />
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-4VQKQL0E1N"></script>
-		<script type="text/javascript">
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-
-		gtag('config', 'G-4VQKQL0E1N');
-		</script>
-	</head>
-	<body>
-		<Header />
-		<div class="flex flex-col gap-y-10 justify-center items-center px-5 md:px-0 my-20 md:my-28 w-3/4 text-[#5FCDD9] border border-gray-600 rounded-lg py-5 ml-5 shadow-lg shadow-gray-600">
-            <img transition:name={frontmatter.slug} class="aspect-video" src={frontmatter.image.url} alt={frontmatter.image.alt}>
-            <h1 class="text-3xl text-[#5FCDD9] font-semibold">{frontmatter.title}</h1>
-            <slot />
-        </div>
-        <Tags />
-		<Footer />
-		<script>
-			import { initFlowbite } from 'flowbite';
-			// Flowbite se inicializa solo al cargar; tras una View Transition hay que reiniciarlo
-			document.addEventListener('astro:after-swap', () => initFlowbite());
-		</script>
-	</body>
-</html>
+<Layout title={`${frontmatter.title} | Oscar Lugo`} description={frontmatter.description}>
+	<article class="post flex flex-col gap-y-10 justify-center items-center px-5 md:px-0 my-24 md:my-28 w-11/12 md:w-3/4 text-[#5FCDD9] border border-gray-600 rounded-lg py-5 mx-auto md:ml-5 shadow-lg shadow-gray-600">
+		<img transition:name={slug} class="aspect-video w-11/12 md:w-3/4 rounded" src={frontmatter.image.url} alt={frontmatter.image.alt}>
+		<header class="flex flex-col items-center gap-2 text-center w-11/12">
+			<h1 class="text-2xl md:text-3xl text-[#5FCDD9] font-semibold text-balance">{frontmatter.title}</h1>
+			<time class="text-sm text-gray-400" datetime={frontmatter.pubDate.toISOString()}>{formatDate(frontmatter.pubDate)}</time>
+		</header>
+		<slot />
+	</article>
+	<Tags />
+</Layout>
 <style is:global>
-	html {
-		font-family: 'Urbanist', system-ui, sans-serif;
-		scroll-behavior: smooth !important;
-	}
-	body{
-		background-color: #172026;
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-		height: auto;
-	}
-    h2{
-        color: #5FCDD9;
-        text-align: left;
-    }
-	p{
-		width: 80%;
-		color: #027373;
-	}
-    ul{
-        list-style: circle;
-        padding-left: 200px;
-        padding-right: 200px;
+	.post h2, .post h3{
+		color: #5FCDD9;
 		text-align: left;
-    }
-	@media(prefers-reduced-motion: reduce){
-		html{
-			scroll-behavior: auto;
-		}
+		width: 80%;
+		font-weight: 600;
 	}
-	pre{
+	.post h2{
+		font-size: 1.5rem;
+	}
+	.post h3{
+		font-size: 1.2rem;
+	}
+	.post ul{
+		list-style: circle;
+		width: 80%;
+		padding-left: 1.5rem;
+		text-align: left;
+		color: #CBD5E1;
+	}
+	.post pre{
+		width: 80%;
 		max-width: 90%;
+		padding: 1rem;
+		border-radius: 0.5rem;
 	}
-	@media (max-width: 768px) {
-		ul{
-			padding-left: 50px;
-			padding-right: 50px;
-		}
+	.post a{
+		text-decoration: underline;
+	}
+	.post :not(pre) > code{
+		color: #04BFAD;
 	}
 </style>

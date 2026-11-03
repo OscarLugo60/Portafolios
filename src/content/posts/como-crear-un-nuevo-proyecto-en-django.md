@@ -1,13 +1,12 @@
 ---
-layout: ../../layouts/MarkdownPostLayout.astro
 title: 'Cómo crear un nuevo proyecto en Django'
 pubDate: 2024-09-25
-description: 'Paso a paso para crear un proyecto en Django, incluyendo la configuración basica de los archivos settings'
+description: 'Paso a paso para crear un proyecto en Django, incluyendo la configuración básica de los archivos settings'
 author: 'Oscar Lugo'
 image: 
-    url: 'https://imagedelivery.net/qc7VvyphMGWFiPVvTbB-ww/swapps.com/2016/02/simply-django-announcements.jpg/w=1024,h=576'
-    alt: 'Logo de Django sobre codigo python'
-tags: ["django", "python",]
+    url: '/img/posts/como-crear-un-nuevo-proyecto-en-django.svg'
+    alt: 'Portada: Cómo crear un nuevo proyecto en Django'
+tags: ["django", "python"]
 slug: 'como-crear-un-nuevo-proyecto-en-django'
 ---
 ## Creación del Entorno Virtual
@@ -47,7 +46,7 @@ python manage.py runserver
 * ***django-cors-headers***: permite configurar los CORS para que las API's que creemos puedan ser accedidas por el front.
 * ***djangorestframework***: permite usar django como servicio REST.
 * ***psycopg2***: permite trabajar con bases de datos PostgreSQL.
-* ***pillow***: permite procesar imagenes.
+* ***pillow***: permite procesar imágenes.
 
 El siguiente paso es dividir el archivo settings, con el objetivo de que las configuraciones se puedan cambiar en la etapa de desarrollo y en la etapa de despliegue y sean más fáciles de manipular.
 
@@ -59,11 +58,11 @@ Debemos crear una carpeta llamada **settings** y dentro de ella crearemos 3 arch
 Luego de cambiar estos datos, debemos editar el archivo **manage.py** para cambiar la ruta al nuevo archivo **settings**, el cual es **local.py** o **prod.py** según el entorno en el que se encuentre nuestro proyecto.
 ## Aumentar la seguridad de los settings
 
-Al compartir un proyecto en github es ideal resguardar información que colocamos en los settins que es de vital importancia como lo es la **secret key** que se genera al crear el **proyecto de Django** y los datos de acceso a nuestra base de datos.
+Al compartir un proyecto en github es ideal resguardar información que colocamos en los settings que es de vital importancia como lo es la **secret key** que se genera al crear el **proyecto de Django** y los datos de acceso a nuestra base de datos.
 
 Por ende, es recomendable crear un archivo json privado y desde el **código de python** acceder a esa información importante. 
 
-Primero crearémos el archivo, yo le colocaré de nombre **secret.json**, estará en la carpeta raíz de mi proyecto y tendrá la siguiente estructura:
+Primero crearemos el archivo, yo le colocaré de nombre **secret.json**, estará en la carpeta raíz de mi proyecto y tendrá la siguiente estructura:
 ```json
 {
     "FILE_NAME": "secret.json",
@@ -79,25 +78,25 @@ from django.core.exceptions import ImproperlyConfigured
 import json
 from unipath import Path
 ```
-Usarémos **unipath** para cambiar la forma en la que funciona **BASE_DIR** para acceder más fácilmente al archivo **secret** por lo que eso será lo primero que harémos:
+Usaremos **unipath** para cambiar la forma en la que funciona **BASE_DIR** para acceder más fácilmente al archivo **secret** por lo que eso será lo primero que haremos:
 ```python
 BASE_DIR = Path(__file__).ancestor(3)
 ```
-Ahora accederémos al archivo secret de la siguiente manera:
+Ahora accederemos al archivo secret de la siguiente manera:
 ```python
 with open(BASE_DIR.child('secret.json')) as f:
-    secret = json.loads(f.read())
+    secrets = json.loads(f.read())
 ```
 Luego creamos una función que obtenga las variables que necesitamos dentro de ese archivo:
 ```python
 def get_secret(secret_name, secrets=secrets):
     try:
         return secrets[secret_name]
-    excetp:
-    msg: "la varialbre %s no existe" % secret_name
-    raise ImproperlyConfigured(msg)
+    except KeyError:
+        msg = "la variable %s no existe" % secret_name
+        raise ImproperlyConfigured(msg)
 ```
-Esta función recibe como primer parametro un **"secret_name"** que es el nombre de la variable que necesitamos encontrar dentro del archivo secret, y como segundo parámetro recibe el contenido del archivo que obtuvimos en la instrucción anterior, luego intenta obtener el valor de la variable que estamos solicitando, en caso de que no exista dicha variable retornará un error con el mensaje: ***"la variable 'nombre_variable' no existe"***.
+Esta función recibe como primer parámetro un **"secret_name"** que es el nombre de la variable que necesitamos encontrar dentro del archivo secret, y como segundo parámetro recibe el contenido del archivo que obtuvimos en la instrucción anterior, luego intenta obtener el valor de la variable que estamos solicitando, en caso de que no exista dicha variable retornará un error con el mensaje: ***"la variable 'nombre_variable' no existe"***.
 
 De esta manera, ya podemos obtener los datos que necesitamos, como lo es la secret_key que genera django:
 ```python
@@ -127,10 +126,10 @@ THIRD_PARTY_APPS = (
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 ```
-Crearemos 3 tuplas, donde separaremos las **aplicaciones originales de django**, las aplicaciones desarrolladas por nosotros y las aplicaciones de terceros que importemos como lo son **django rest framework** y **django cors headers** que deben registrarse como aplicaciones para que funcionen correctamente, luego esas tres tuplas las concatenarémos dentro de la variable **INSTALLED_APPS**, de esta manera seguirá cumpliendo la misma función y tendremos nuestro código más organizado.
+Crearemos 3 tuplas, donde separaremos las **aplicaciones originales de django**, las aplicaciones desarrolladas por nosotros y las aplicaciones de terceros que importemos como lo son **django rest framework** y **django cors headers** que deben registrarse como aplicaciones para que funcionen correctamente, luego esas tres tuplas las concatenaremos dentro de la variable **INSTALLED_APPS**, de esta manera seguirá cumpliendo la misma función y tendremos nuestro código más organizado.
 
 ### Templates
-En la configuración de los templates solo necesitarémos colocar la dirección de la carpeta donde colocarémos nuestros templates: 
+En la configuración de los templates solo necesitaremos colocar la dirección de la carpeta donde colocaremos nuestros templates: 
 ```python
 TEMPLATES = [
     {
@@ -148,13 +147,13 @@ TEMPLATES = [
     },
 ]
 ```
-Lo cual logramos usando la variable **BASE_DIR**, accedemos a su hijo y a la carpeta que creamos con nombre **templates**, la cual coloque a la misma altura del archivo **manage.py**.
+Lo cual logramos usando la variable **BASE_DIR**, accedemos a su hijo y a la carpeta que creamos con nombre **templates**, la cual coloqué a la misma altura del archivo **manage.py**.
 
 ### Últimas consideraciones en el archivo base.py
 
-En el archivo **base.py** debemos integrar, en caso de que necesitemos un modelo de base de datos que funcione como autenticación  de usuarios debemos especificarlo con la variable **AUTH_USER_MODEL**.
+En el archivo **base.py** debemos integrar, en caso de que necesitemos un modelo de base de datos que funcione como autenticación de usuarios debemos especificarlo con la variable **AUTH_USER_MODEL**.
 
-También, para que funcione la configuración de los CORS debemos integrarla en este archivo sin embargo la configuración varará según las necesidades, se puede obtener más información en la [documentación de django cors headers](https://pypi.org/project/django-cors-headers/).
+También, para que funcione la configuración de los CORS debemos integrarla en este archivo sin embargo la configuración variará según las necesidades, se puede obtener más información en la [documentación de django cors headers](https://pypi.org/project/django-cors-headers/).
 
 Por último, se recomienda cambiar la configuración de internacionalización y zona horaria según corresponda.
 
@@ -165,24 +164,24 @@ Luego de tener el **archivo base** organizado podemos empezar a trabajar en los 
 ```python
 from .base import *
 ```
-Luego colocarémos la configuración que activa o desactiva el modo debug, el cual funciona para que los errores se nos muestren de mejor manera para solucionarlos más rápidamente, sin embargo, esta configuración en etapa de producción no se suele activar, porque de esta manera suelen mostrarse partes de nuestro codigo, lo cual no es seguro para nuestros sistemas.
+Luego colocaremos la configuración que activa o desactiva el modo debug, el cual funciona para que los errores se nos muestren de mejor manera para solucionarlos más rápidamente, sin embargo, esta configuración en etapa de producción no se suele activar, porque de esta manera suelen mostrarse partes de nuestro código, lo cual no es seguro para nuestros sistemas.
 ```python
 DEBUG = True
 ```
-La siguiente configuración es la variable **ALLOWED_HOST** que son los hosts que se permiten conectarse a nuestro proyecto:
+La siguiente configuración es la variable **ALLOWED_HOSTS**, que son los hosts que se permiten conectarse a nuestro proyecto:
 ```python
 ALLOWED_HOSTS = ["*"]
 ```
 De esta manera se permiten conexiones desde todos los hosts, suele colocarse de esta manera solo en etapa de desarrollo.
 
-Ahora colocarémos la configuración de conexión a la base de datos:
+Ahora colocaremos la configuración de conexión a la base de datos:
 ```python
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': get_secret('DB_NAME'),
-        'USER': get_secret('USER'),
-        'PASSWORD': get_secret('PASSWORD'),
+        'USER': get_secret('DB_USER'),
+        'PASSWORD': get_secret('DB_PASSWORD'),
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -190,7 +189,7 @@ DATABASES = {
 ```
 En primer lugar, modificaremos el **ENGINE** en el cual, como trabajaremos con **PostgreSQL** utilizando **psycopg2**, los datos de **NAME, USER, PASSWORD** las extraeremos de nuestro archivo secrets tal como hicimos con la **SECRET_KEY en nuestro archivo base.py**, desde el cual estamos importando la función que obtiene los datos de dicho archivo.
 
-Por último, colocarémos la configuración de los archivos estáticos y multimedia, la cual colocaremos de la siguiente manera en modo de desarrollo en producción cambiará según cómo se haga el despliegue:
+Por último, colocaremos la configuración de los archivos estáticos y multimedia, la cual colocaremos de la siguiente manera en modo de desarrollo en producción cambiará según cómo se haga el despliegue:
 ```python
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR.child('staticfiles')

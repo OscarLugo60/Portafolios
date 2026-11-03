@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Urbanist, system-ui, sans-serif">
+<rect width="1280" height="720" fill="#172026"/>
+<rect x="24" y="24" width="1232" height="672" rx="24" fill="none" stroke="#04BF9D" stroke-width="3"/>
+<circle cx="1120" cy="140" r="220" fill="#027373" opacity="0.25"/>
+<circle cx="1180" cy="620" r="160" fill="#04BFAD" opacity="0.12"/>
+<text x="80" y="140" font-size="30" letter-spacing="6" fill="#04BFAD">DJANGO</text>
+<text x="80" y="250" font-size="58" font-weight="600" fill="#5FCDD9">Cómo crear un nuevo</text><text x="80" y="322" font-size="58" font-weight="600" fill="#5FCDD9">proyecto en Django</text>
+<rect x="80" y="470" width="760" height="84" rx="12" fill="#0d1316" stroke="#027373"/>
+<text x="110" y="524" font-size="32" font-family="Consolas, monospace" fill="#CBD5E1">$ django-admin startproject</text>
+<text x="80" y="640" font-size="28" fill="#CBD5E1">Oscar Lugo · Blog</text>
+</svg>

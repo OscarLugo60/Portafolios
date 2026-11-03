@@ -1,10 +1,61 @@
-<header class="flex justify-center py-5 shadow-md shadow-[#04BF9D] fixed top-0 left-0 right-0 px-4 bg-[#172026] z-10">
-    <nav class="flex flex-row gap-x-4 md:gap-x-10 text-[#5FCDD9] text-xs md:text-base lg:text-xl">
-        <a href="/#top">Inicio</a>
-        <a href="/#projects">Proyectos</a>
-        <a href="/#about">Sobre mí</a>
-        <a href="/#contact">Contacto</a>
-        <a href="/blog">Blog</a>
-        <!-- <a href="/#audiovisual">Audiovisual</a> -->
+---
+const LINKS = [
+    { href: '/#top', label: 'Inicio' },
+    { href: '/#projects', label: 'Proyectos' },
+    { href: '/#about', label: 'Sobre mí' },
+    { href: '/#contact', label: 'Contacto' },
+    { href: '/blog', label: 'Blog' },
+]
+---
+<header class="fixed top-0 left-0 right-0 z-40 bg-[#172026] shadow-md shadow-[#04BF9D]">
+    <div class="flex items-center justify-between md:justify-center px-4 py-4 md:py-5">
+        <a href="/#top" class="md:hidden text-lg font-semibold text-[#5FCDD9]">Oscar Lugo</a>
+
+        <nav class="hidden md:flex flex-row gap-x-10 text-[#5FCDD9] text-base lg:text-xl">
+            {LINKS.map(link => (
+                <a class="hover:text-[#04BF9D] transition" href={link.href}>{link.label}</a>
+            ))}
+        </nav>
+
+        <button
+            id="menu-button"
+            type="button"
+            class="md:hidden p-2 rounded-md text-[#5FCDD9] border border-[#04BF9D] hover:bg-[#29353d] transition"
+            aria-controls="mobile-menu"
+            aria-expanded="false"
+            aria-label="Abrir menú"
+        >
+            <svg class="size-5" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+    </div>
+
+    <nav id="mobile-menu" class="hidden md:hidden border-t border-[#04BF9D55]">
+        <ul class="flex flex-col py-2 list-none">
+            {LINKS.map(link => (
+                <li>
+                    <a class="block px-6 py-3 text-[#5FCDD9] hover:bg-[#29353d] hover:text-[#04BF9D] transition" href={link.href}>{link.label}</a>
+                </li>
+            ))}
+        </ul>
     </nav>
 </header>
+
+<script>
+    // Se vuelve a enlazar en cada navegación porque las View Transitions reemplazan el header
+    document.addEventListener('astro:page-load', () => {
+        const button = document.getElementById('menu-button')
+        const menu = document.getElementById('mobile-menu')
+        if (!button || !menu) return
+
+        const setOpen = (open: boolean) => {
+            menu.classList.toggle('hidden', !open)
+            button.setAttribute('aria-expanded', String(open))
+            button.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú')
+        }
+
+        button.addEventListener('click', () => setOpen(menu.classList.contains('hidden')))
+        menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setOpen(false)))
+    })
+</script>

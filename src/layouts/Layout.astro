@@ -48,6 +48,8 @@ import { ViewTransitions } from 'astro:transitions';
 	html {
 		font-family: 'Urbanist', system-ui, sans-serif;
 		scroll-behavior: smooth !important;
+		/* Deja espacio para el header fijo al saltar a una sección */
+		scroll-padding-top: 5rem;
 	}
 	body{
 		background-color: #172026;
@@ -69,7 +71,7 @@ import { ViewTransitions } from 'astro:transitions';
 	}
 	p{
 		width: 80%;
-		color: #027373;
+		color: #CBD5E1;
 	}
 	@media(prefers-reduced-motion: reduce){
 		html{
