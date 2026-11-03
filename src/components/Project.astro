@@ -5,7 +5,7 @@ const PROJECT = [
         id: 1,
         title: 'Sistema de Control de Cirugías',
         description:
-            'Aplicación web para gestionar la agenda quirúrgica de una clínica con varios quirófanos y cirujanos. Registra cada cirugía con su fecha, hora, cirujano y quirófano, y muestra estadísticas en gráficas para coordinar mejor al personal y los espacios. Trabajé en el backend con Python y Django, la base de datos en PostgreSQL y el despliegue con Nginx.',
+            'Aplicación web para organizar las cirugías de una clínica con varios quirófanos y cirujanos. Registra cada intervención con su fecha, hora, cirujano y quirófano, administra los implementos quirúrgicos y muestra estadísticas en gráficas. Redujo los errores de organización en un 80% y mejoró la planificación de las cirugías. Trabajé en el backend con Python y Django, la base de datos en PostgreSQL y el despliegue con Nginx.',
         link: '',
         github: 'https://github.com/OscarLugo60/Cirugias',
         img: [
@@ -15,6 +15,12 @@ const PROJECT = [
             'img/ControlCirugias/Registro.webp',
         ],
         tech: ['Python', 'Django', 'JavaScript', 'PostgreSQL', 'Nginx']
+    },
+    {
+        id: 4,
+        title: 'Sistema de Gestión de Estadías de Pacientes',
+        description:
+            'Sistema para que los pacientes hospitalizados reporten inconvenientes durante su estadía y el personal los atienda, consulten información importante sobre su estadía y valoren la atención recibida. Permitió que el personal resolviera los reportes un 50% más rápido.',
     },
     {
         id: 2,
@@ -51,7 +57,7 @@ const PROJECT = [
     },
 ]
 ---
-<ol class="relative mt-5 border-s border-[#027373] dark:border-gray-700">
+<ol class="relative mt-5 border-s border-[#027373]">
     {
         PROJECT.map(project => (
             <li class="mb-10 ms-4 list-none">

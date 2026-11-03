@@ -3,42 +3,79 @@ import PythonIcon from "../icons/PythonIcon.astro";
 import DjangoIcon from "../icons/DjangoIcon.astro";
 import JSIcon from "../icons/JSIcon.astro";
 import PHPIcon from "../icons/PHPIcon.astro";
-import CIcon from "../icons/CIcon.astro";
 import VueIcon from "../icons/VueIcon.astro";
+import SvelteIcon from "../icons/SvelteIcon.astro";
 import MySQL from "../icons/MySQL.astro";
 import Postgres from "../icons/Postgres.astro";
 import SQLite from "../icons/SQLite.astro";
-import VSCodeIcon from "../icons/VSCode.astro";
 import Figma from "../icons/Figma.astro";
 import GitIcon from "../icons/GitIcon.astro";
-import Photoshop from "../icons/Photoshop.astro";
+import NginxIcon from "../icons/NginxIcon.astro";
 import Bootstrap from "../icons/Bootstrap.astro";
 import AstroIcon from "../icons/AstroIcon.astro";
 import TailwindIcon from "../icons/TailwindIcon.astro";
 
-const TECHNOLOGIES = [
-    { name: 'Python', icon: PythonIcon, size: 'size-14' },
-    { name: 'Django', icon: DjangoIcon },
-    { name: 'JavaScript', icon: JSIcon, size: 'size-10 rounded' },
-    { name: 'PHP', icon: PHPIcon },
-    { name: 'C++', icon: CIcon, size: 'size-10' },
-    { name: 'Vue', icon: VueIcon },
-    { name: 'MySQL', icon: MySQL },
-    { name: 'PostgreSQL', icon: Postgres },
-    { name: 'SQLite', icon: SQLite },
-    { name: 'VS Code', icon: VSCodeIcon },
-    { name: 'Figma', icon: Figma },
-    { name: 'Git', icon: GitIcon },
-    { name: 'Photoshop', icon: Photoshop },
-    { name: 'Bootstrap', icon: Bootstrap },
-    { name: 'Astro', icon: AstroIcon },
-    { name: 'Tailwind', icon: TailwindIcon },
+const GROUPS = [
+    {
+        title: 'Backend',
+        items: [
+            { name: 'Python', icon: PythonIcon, size: 'size-14' },
+            { name: 'Django', icon: DjangoIcon },
+            { name: 'PHP', icon: PHPIcon },
+            { name: 'Django REST Framework' },
+        ],
+    },
+    {
+        title: 'Frontend',
+        items: [
+            { name: 'JavaScript', icon: JSIcon, size: 'size-10 rounded' },
+            { name: 'Astro', icon: AstroIcon },
+            { name: 'Tailwind', icon: TailwindIcon },
+            { name: 'Vue', icon: VueIcon },
+            { name: 'Svelte', icon: SvelteIcon },
+            { name: 'Bootstrap', icon: Bootstrap },
+        ],
+    },
+    {
+        title: 'Bases de datos',
+        items: [
+            { name: 'PostgreSQL', icon: Postgres },
+            { name: 'MySQL', icon: MySQL },
+            { name: 'SQLite', icon: SQLite },
+        ],
+    },
+    {
+        title: 'Herramientas e infraestructura',
+        items: [
+            { name: 'Git', icon: GitIcon },
+            { name: 'Nginx', icon: NginxIcon },
+            { name: 'Figma', icon: Figma },
+        ],
+    },
+    {
+        title: 'Sistemas y redes',
+        items: [
+            { name: 'Windows Server' },
+            { name: 'Active Directory' },
+            { name: 'DHCP' },
+            { name: 'Servidor Proxy' },
+        ],
+    },
 ]
 ---
 
-{TECHNOLOGIES.map(({ name, icon: Icon, size = 'size-12' }) => (
-    <div class="flex flex-col items-center justify-end gap-y-2 p-1 rounded-sm transition hover:bg-[#0f1316] hover:shadow-md hover:shadow-[#04BF9D55] min-w-20">
-        <Icon class={size} />
-        <span class="text-[#04BFAD] text-xs text-center">{name}</span>
+{GROUPS.map(group => (
+    <div class="flex flex-col gap-4">
+        <h2 class="text-lg md:text-xl text-[#5FCDD9] font-semibold">{group.title}</h2>
+        <ul class="flex flex-wrap gap-4 list-none">
+            {group.items.map(({ name, icon: Icon, size = 'size-12' }) => (
+                Icon
+                    ? <li class="flex flex-col items-center justify-end gap-y-2 p-1 rounded-sm transition hover:bg-[#0f1316] hover:shadow-md hover:shadow-[#04BF9D55] min-w-20">
+                        <Icon class={size} />
+                        <span class="text-[#04BFAD] text-xs text-center">{name}</span>
+                    </li>
+                    : <li class="self-center text-sm text-[#04BFAD] border border-[#027373] rounded-md px-3 py-1.5">{name}</li>
+            ))}
+        </ul>
     </div>
 ))}

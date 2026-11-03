@@ -2,30 +2,55 @@
 import ExperienceItem from "./ExperienceItem.astro";
 const EXPERIENCE = [
     {
-        date: 'Noviembre 2021 - Actualidad',
-        title: 'Coordinador del departamento de sistemas',
-        subtitle: 'Centro Médico Docente el Paso',
+        date: 'Noviembre 2020 - Actualidad',
+        title: 'Coordinador del Departamento de Sistemas y Desarrollador de Sistemas Internos',
+        subtitle: 'Centro Médico Docente El Paso · Empresas Grupo El Paso',
         description:
-            'Responsable del área de sistemas de la clínica: administración y mantenimiento de servidores, configuración de redes y soporte y reparación de equipos informáticos.',
-        link: '#',
+            'Lidero el área de sistemas de la clínica y desarrollo los sistemas internos con Python, Django, Django REST Framework, JavaScript, Astro y Tailwind.',
+        achievements: [
+            'Sistemas internos para procesos médicos y administrativos que redujeron los errores y el tiempo de gestión en un 40%.',
+            'Sistema de gestión de cirugías que redujo los errores de organización en un 80%.',
+            'Servidor proxy que redujo la carga de la red y el acceso a sitios web prohibidos en un 50%.',
+            'Administración de servidores Windows Server 2012 R2, Active Directory y DHCP, con mantenimiento preventivo y correctivo.',
+            'Desarrollo de la página web principal de la empresa.',
+        ],
     },
     {
-        date: 'Agosto 2021',
-        title: 'Desarrollador Backend',
-        subtitle: 'Empresas Grupo el Paso',
+        date: '2019 - 2020',
+        title: 'Personal de IT',
+        subtitle: 'Clínica La Paz',
         description:
-            'Parte del equipo que desarrolló el sistema de control de cirugías para una clínica con varios quirófanos y cirujanos, a cargo del backend en Python y Django.',
-        link: '#',
+            'Mantenimiento y reparación de computadoras, y mantenimiento de servidores para el correcto funcionamiento del sistema de la empresa.',
+    },
+    {
+        date: '2019 - 2020',
+        title: 'Programador Full Stack (proyectos universitarios e independientes)',
+        subtitle: 'Bibliotecas Públicas de Miranda · Parroquia San Pedro Apóstol',
+        description:
+            'Desarrollo de aplicaciones web con PHP, MySQL, HTML5, CSS3 y JavaScript.',
+    },
+    {
+        date: '2018 - 2019',
+        title: 'Asistente Administrativo Informático',
+        subtitle: 'Instituto Médico Quirúrgico Ribas',
+        description:
+            'Mantenimiento y reparación de computadoras, impresoras y servidores, y apoyo administrativo en el departamento de admisión.',
+    },
+    {
+        date: '2017 - 2019',
+        title: 'Técnico de Soporte y Mantenimiento',
+        subtitle: 'U.E. Colegio "Nuestro Esfuerzo" · Hospital "Victorino Santaella"',
+        description:
+            'Servicio técnico preventivo y correctivo de hardware y software en entornos de alta demanda.',
     },
 ]
 ---
-<ol class="relative border-s-2 border-[#027373] dark:border-gray-700 mt-5">
+<ol class="relative border-s-2 border-[#027373] mt-5">
     {
         EXPERIENCE.map(experience => (
             <li class="mb-10 ms-4">
                 <ExperienceItem {... experience} />
             </li>
         ))
-    }               
+    }
 </ol>
-

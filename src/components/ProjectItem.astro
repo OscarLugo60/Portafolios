@@ -21,133 +21,162 @@ interface Props{
     tech?: string[]
     github?: string
 }
-const { id, title, description, link, img, github, tech } = Astro.props
+const { id, title, description, link, img = [], github, tech = [] } = Astro.props
+const hasDetails = img.length > 0 || tech.length > 0 || link || github
+
+const TECH_ICONS = {
+    Python: PythonIcon,
+    Django: DjangoIcon,
+    JavaScript: JSIcon,
+    MySQL: MySQLIcon,
+    PostgreSQL: PostgreSQLIcon,
+    Bootstrap: BootstrapIcon,
+    Tailwind: TailwindIcon,
+    Astro: AstroIcon,
+    Nginx: NginxIcon,
+    Svelte: SvelteIcon,
+}
 ---
 
-<div class="absolute w-4 h-4 bg-[#027373] rounded-full mt-1.5 -start-[9px] border border-[#027373]">
-
-</div>
-<h3 
-    class="text-lg font-semibold text-[#04BFAD] dark:text-white"
-    >
-    {title}
-</h3>
-<p
-    class="mb-4 text-base font-normal text-gray-400 dark:text-gray-400"
-    >
-    {description}
-</p>
+<div class="absolute w-4 h-4 bg-[#027373] rounded-full mt-1.5 -start-[9px] border border-[#027373]"></div>
+<h3 class="text-lg font-semibold text-[#04BFAD]">{title}</h3>
+<p class="mb-4 text-base font-normal text-gray-400">{description}</p>
+{hasDetails && (<>
 <button
-    data-modal-target={`default-modal-${id}`}
-    data-modal-toggle={`default-modal-${id}`}
+    data-dialog-open={`project-${id}`}
     type="button"
-    class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-[#027373] border border-[#04BF9D] rounded-lg hover:bg-[#172026] hover:text-[#04BF9D] focus:z-10 focus:ring-4 focus:outline-none focus:ring-[#04BF9D] focus:text-[#04BF9D]  transition"
-    >
+    class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-[#027373] border border-[#04BF9D] rounded-lg hover:bg-[#172026] hover:text-[#04BF9D] focus:outline-none focus:ring-4 focus:ring-[#04BF9D] transition"
+>
     Saber más
-    <svg
-        class="w-3 h-3 ms-2 rtl:rotate-180"
-        aria-hidden="true"
-        fill="none"
-        viewBox="0 0 14 10"
-        ><path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M1 5h12m0 0L9 1m4 4L9 9"
-        />
+    <svg class="w-3 h-3 ms-2" aria-hidden="true" fill="none" viewBox="0 0 14 10">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
     </svg>
-</button >
+</button>
 
-<!-- Main modal -->
-<div id={`default-modal-${id}`} tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative p-2 w-full max-w-2xl max-h-full">
-        <!-- Modal content -->
-        <div class="relative bg-[#172026] rounded-lg shadow-xl">
-            <!-- Modal header -->
-            <div class="flex items-center justify-between p-2 md:p-2 border-b rounded-t dark:border-gray-600">
-                <h3 class="text-xl font-semibold text-white">
-                    {title}
-                </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide={`default-modal-${id}`}>
-                    <svg class="w-3 h-3" aria-hidden="true" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span class="sr-only">Cerrar</span>
+<dialog id={`project-${id}`} aria-labelledby={`project-${id}-title`} class="project-dialog w-full max-w-2xl p-0 bg-[#172026] rounded-lg shadow-xl">
+    <div class="flex items-center justify-between p-3 border-b border-gray-600">
+        <h3 id={`project-${id}-title`} class="text-xl font-semibold text-white">{title}</h3>
+        <button type="button" data-dialog-close class="text-gray-400 hover:bg-gray-600 hover:text-white rounded-lg w-8 h-8 inline-flex justify-center items-center">
+            <svg class="w-3 h-3" aria-hidden="true" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            </svg>
+            <span class="sr-only">Cerrar</span>
+        </button>
+    </div>
+
+    <div class="p-3 space-y-4 flex flex-col">
+        {img.length > 0 && (
+            <div class="relative w-full" data-carousel>
+                <div class="relative h-56 md:h-96 overflow-hidden rounded-lg bg-[#0d1316]">
+                    {img.map((item, index) => (
+                        <img
+                            src={`/${item}`}
+                            alt={`${title} - captura ${index + 1}`}
+                            loading="lazy"
+                            class:list={['absolute inset-0 w-full h-full object-contain transition-opacity duration-500', index === 0 ? 'opacity-100' : 'opacity-0']}
+                            data-carousel-item
+                        >
+                    ))}
+                </div>
+                <div class="absolute z-10 flex -translate-x-1/2 gap-3 bottom-4 left-1/2">
+                    {img.map((_, index) => (
+                        <button type="button" class:list={['w-3 h-3 rounded-full', index === 0 ? 'bg-white' : 'bg-white/40']} aria-label={`Ver imagen ${index + 1}`} aria-current={index === 0 ? 'true' : 'false'} data-carousel-dot={index}></button>
+                    ))}
+                </div>
+                <button type="button" class="absolute top-0 start-0 z-10 flex items-center justify-center h-full px-3 group focus:outline-none" data-carousel-prev>
+                    <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white">
+                        <svg class="w-4 h-4 text-white" aria-hidden="true" fill="none" viewBox="0 0 6 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                        </svg>
+                        <span class="sr-only">Anterior</span>
+                    </span>
+                </button>
+                <button type="button" class="absolute top-0 end-0 z-10 flex items-center justify-center h-full px-3 group focus:outline-none" data-carousel-next>
+                    <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white">
+                        <svg class="w-4 h-4 text-white" aria-hidden="true" fill="none" viewBox="0 0 6 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                        </svg>
+                        <span class="sr-only">Siguiente</span>
+                    </span>
                 </button>
             </div>
-            <!-- Modal body -->
-            <div class="p-2 md:p-3 space-y-4 flex flex-col">
-                
-            <!-- Carousel wrapper -->
-                <div id={`indicators-carousel-${id}`} class="relative w-full" data-carousel="static">
-                    <!-- Carousel wrapper -->
-                    <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-                        {img.map((item, index) => (
-                                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                    <img src={`/${item}`} class="mx-auto" alt={`${title} - captura ${index + 1}`}>
-                                </div>
-                            )
-                        )}
-                    </div>
-                    <!-- Slider indicators -->
-                    <div class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2">
-                        {img.map((_, index) => (
-                            <button type="button" class="w-3 h-3 rounded-full" aria-current={index === 0 ? 'true' : 'false'} aria-label={`Imagen ${index + 1}`} data-carousel-slide-to={index}></button>
-                        ))}
-                    </div>
-                    <!-- Slider controls -->
-                    <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-                        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-                            </svg>
-                            <span class="sr-only">Previous</span>
-                        </span>
-                    </button>
-                    <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-                        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                            </svg>
-                            <span class="sr-only">Next</span>
-                        </span>
-                    </button>
-                </div>
-                <div class="flex flex-col items-center justify-center">
-                    <h5 class="mb-2 text-xl font-bold tracking-tight text-[#5FCDD9] dark:text-white">Tecnologías</h5>
-                    <div class="flex flex-wrap gap-2 items-center justify-center">
-                        {tech.map(item => (
-                            item === "Python" ? <PythonIcon class="size-8" /> : null
-                            || item === "Django" ? <DjangoIcon class="size-6" /> : null
-                            || item === "JavaScript" ? <JSIcon class="size-6" /> : null
-                            || item === "MySQL" ? <MySQLIcon class="size-6" /> : null
-                            || item === "PostgreSQL" ? <PostgreSQLIcon class="size-6" /> : null
-                            || item === "Bootstrap" ? <BootstrapIcon class="size-6" /> : null
-                            || item === "Tailwind" ? <TailwindIcon class="size-6" /> : null
-                            || item === "Astro" ? <AstroIcon class="size-6" /> : null
-                            || item === "Nginx" ? <NginxIcon class="size-6" /> : null
-                            || item === "Svelte" ? <SvelteIcon class="size-6" /> : null
-                        ))}
-                    </div>    
-                </div>
+        )}
+
+        {tech.length > 0 && (
+            <div class="flex flex-col items-center justify-center">
+                <h4 class="mb-2 text-xl font-bold tracking-tight text-[#5FCDD9]">Tecnologías</h4>
+                <ul class="flex flex-wrap gap-3 items-center justify-center list-none">
+                    {tech.map(item => {
+                        const Icon = TECH_ICONS[item]
+                        return Icon
+                            ? <li title={item}><Icon class={item === 'Python' ? 'size-8' : 'size-6'} /><span class="sr-only">{item}</span></li>
+                            : <li class="text-xs text-[#04BFAD] border border-[#027373] rounded px-2 py-1">{item}</li>
+                    })}
+                </ul>
             </div>
-            <!-- Modal footer -->
-            <div class="flex items-center p-2 md:p-3 border-t border-gray-200 rounded-b dark:border-gray-600">
-                {
-                    link.length > 0 && (
-                    <a href={link} target="_blank" data-modal-hide={`default-modal-${id}`} type="button" class="text-white bg-[#027373] hover:bg-[#04BFAD] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-center transition flex items-center justify-center gap-3">
-                        <WebIcon class="size-6 text-[#5FCDD9]" />
-                        Visitar Sitio
-                    </a>
-                    )
-                }
-                <a href={github} target="_blank" data-modal-hide={`default-modal-${id}`} type="button" class="py-2 px-5 ms-3 text-sm font-medium text-white focus:outline-none bg-[#027373] rounded-lg hover:bg-[#04BF9D] focus:z-10 focus:ring-4 focus:ring-gray-100 flex items-center justify-center gap-3 transition">
+        )}
+    </div>
+
+    {(link || github) && (
+        <div class="flex items-center gap-3 p-3 border-t border-gray-600">
+            {link && (
+                <a href={link} target="_blank" rel="noopener" class="text-white bg-[#027373] hover:bg-[#04BFAD] font-medium rounded-lg text-sm px-5 py-2 transition flex items-center justify-center gap-3">
+                    <WebIcon class="size-6 text-[#5FCDD9]" />
+                    Visitar sitio
+                </a>
+            )}
+            {github && (
+                <a href={github} target="_blank" rel="noopener" class="text-white bg-[#027373] hover:bg-[#04BF9D] font-medium rounded-lg text-sm px-5 py-2 transition flex items-center justify-center gap-3">
                     <GitHub class="size-6 text-[#5FCDD9]"/>
                     Ver GitHub
                 </a>
-            </div>
+            )}
         </div>
-    </div>
-</div>
-  
+    )}
+</dialog>
+</>)}
+
+<style is:global>
+    .project-dialog::backdrop {
+        background: rgb(0 0 0 / 0.7);
+    }
+</style>
+
+<script>
+    // Se vuelve a enlazar en cada navegación porque las View Transitions reemplazan el contenido
+    document.addEventListener('astro:page-load', () => {
+        document.querySelectorAll<HTMLButtonElement>('[data-dialog-open]').forEach(button => {
+            const dialog = document.getElementById(button.dataset.dialogOpen!) as HTMLDialogElement | null
+            if (!dialog) return
+            button.addEventListener('click', () => dialog.showModal())
+            dialog.querySelector('[data-dialog-close]')?.addEventListener('click', () => dialog.close())
+            // Cerrar al hacer clic fuera del contenido
+            dialog.addEventListener('click', event => {
+                if (event.target === dialog) dialog.close()
+            })
+        })
+
+        document.querySelectorAll<HTMLElement>('[data-carousel]').forEach(carousel => {
+            const items = [...carousel.querySelectorAll<HTMLElement>('[data-carousel-item]')]
+            const dots = [...carousel.querySelectorAll<HTMLElement>('[data-carousel-dot]')]
+            let current = 0
+
+            const show = (index: number) => {
+                current = (index + items.length) % items.length
+                items.forEach((item, i) => {
+                    item.classList.toggle('opacity-100', i === current)
+                    item.classList.toggle('opacity-0', i !== current)
+                })
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('bg-white', i === current)
+                    dot.classList.toggle('bg-white/40', i !== current)
+                    dot.setAttribute('aria-current', String(i === current))
+                })
+            }
+
+            carousel.querySelector('[data-carousel-prev]')?.addEventListener('click', () => show(current - 1))
+            carousel.querySelector('[data-carousel-next]')?.addEventListener('click', () => show(current + 1))
+            dots.forEach((dot, i) => dot.addEventListener('click', () => show(i)))
+        })
+    })
+</script>

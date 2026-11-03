@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Oscar Lugo - Currículum</title>
+<style>
+	@page { size: A4; margin: 14mm 15mm; }
+	* { box-sizing: border-box; }
+	body {
+		margin: 0;
+		font-family: "Segoe UI", Calibri, Arial, sans-serif;
+		font-size: 10pt;
+		line-height: 1.4;
+		color: #1f2a30;
+	}
+	header {
+		border-bottom: 3px solid #027373;
+		padding-bottom: 8px;
+		margin-bottom: 10px;
+	}
+	h1 {
+		margin: 0;
+		font-size: 24pt;
+		letter-spacing: 0.5px;
+		color: #0b3b3b;
+	}
+	.role {
+		margin: 2px 0 6px;
+		font-size: 12pt;
+		color: #027373;
+		font-weight: 600;
+	}
+	.contact {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 4px 16px;
+		font-size: 9pt;
+		color: #33444c;
+	}
+	.contact a { color: inherit; text-decoration: none; }
+	h2 {
+		margin: 14px 0 6px;
+		font-size: 11pt;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		color: #027373;
+		border-bottom: 1px solid #b9d6d6;
+		padding-bottom: 2px;
+	}
+	p { margin: 0 0 4px; }
+	.skills { display: grid; grid-template-columns: 150px 1fr; gap: 3px 10px; }
+	.skills dt { font-weight: 600; }
+	.skills dd { margin: 0; }
+	.job { margin-bottom: 9px; break-inside: avoid; }
+	.job-head { display: flex; justify-content: space-between; gap: 10px; }
+	.job-title { font-weight: 600; }
+	.job-date { color: #33444c; white-space: nowrap; font-size: 9pt; }
+	.job-place { color: #027373; font-size: 9.5pt; }
+	ul { margin: 3px 0 0; padding-left: 16px; }
+	li { margin-bottom: 2px; }
+	.plain { list-style: none; padding-left: 0; }
+	.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 0 20px; }
+</style>
+</head>
+<body>
+	<header>
+		<h1>Oscar Alfonzo Lugo Vierma</h1>
+		<p class="role">Ingeniero en Informática · Desarrollador Full Stack</p>
+		<div class="contact">
+			<span>+58 414-1111521</span>
+			<a href="mailto:oscarlugo60@gmail.com">oscarlugo60@gmail.com</a>
+			<a href="https://www.linkedin.com/in/oscar-lugo-6550943b3">linkedin.com/in/oscar-lugo-6550943b3</a>
+			<a href="https://oscarlugo.codejod.com">oscarlugo.codejod.com</a>
+			<a href="https://github.com/OscarLugo60">github.com/OscarLugo60</a>
+		</div>
+	</header>
+
+	<h2>Perfil profesional</h2>
+	<p>Ingeniero en Informática con sólida experiencia en desarrollo Full Stack y administración de infraestructura crítica. Especialista en gestión de servidores Windows, optimización de redes y diseño de bases de datos relacionales. Desarrollo sistemas internos que reducen errores y tiempos de gestión en entornos médicos y administrativos.</p>
+
+	<h2>Competencias técnicas</h2>
+	<dl class="skills">
+		<dt>Lenguajes y frameworks</dt>
+		<dd>Python, Django, Django REST Framework, JavaScript, Astro, HTML5, CSS3, Tailwind, PHP.</dd>
+		<dt>Bases de datos</dt>
+		<dd>PostgreSQL, MySQL y SQLite: diseño de esquemas y optimización de consultas.</dd>
+		<dt>Control de versiones</dt>
+		<dd>Git y GitHub para el trabajo colaborativo y el despliegue.</dd>
+		<dt>Sistemas y redes</dt>
+		<dd>Administración avanzada de Windows Server 2012 R2, Active Directory (usuarios y políticas), DHCP y servidor proxy.</dd>
+	</dl>
+
+	<h2>Experiencia laboral</h2>
+
+	<div class="job">
+		<div class="job-head">
+			<span class="job-title">Coordinador del Departamento de Sistemas y Desarrollador de Sistemas Internos</span>
+			<span class="job-date">Nov. 2020 – Actualidad</span>
+		</div>
+		<div class="job-place">Centro Médico Docente El Paso · Empresas Grupo El Paso</div>
+		<ul>
+			<li>Liderazgo del departamento de sistemas y mantenimiento de servidores corporativos con Windows Server 2012 R2.</li>
+			<li>Instalación y configuración de servidores DHCP y Active Directory, con mantenimientos preventivos y correctivos que garantizan la alta disponibilidad de los servicios de red y la gestión de identidades.</li>
+			<li>Implementación de un servidor proxy que redujo la carga de la red y el acceso a sitios web prohibidos en un 50%.</li>
+			<li>Desarrollo de sistemas internos con Python, Django, DRF, JavaScript, Astro y Tailwind para procesos médicos y administrativos, que redujeron los errores y el tiempo de gestión en un 40%.</li>
+			<li>Desarrollo de un sistema de gestión de cirugías en varios quirófanos, con administración de implementos quirúrgicos y control de fechas de intervenciones. Redujo los errores de organización en un 80% y mejoró la planificación de cirugías.</li>
+			<li>Desarrollo de un sistema de gestión de estadías de pacientes: los pacientes reportan inconvenientes, consultan información sobre su estadía y valoran la atención. El personal resuelve los reportes un 50% más rápido.</li>
+			<li>Desarrollo de la página web principal de la empresa.</li>
+		</ul>
+	</div>
+
+	<div class="job">
+		<div class="job-head">
+			<span class="job-title">Personal de IT</span>
+			<span class="job-date">2019 – 2020</span>
+		</div>
+		<div class="job-place">Clínica La Paz</div>
+		<ul>
+			<li>Mantenimiento y reparación de computadoras como miembro del departamento de sistemas.</li>
+			<li>Mantenimiento de servidores para el correcto funcionamiento del sistema de la empresa.</li>
+		</ul>
+	</div>
+
+	<div class="job">
+		<div class="job-head">
+			<span class="job-title">Programador Full Stack (proyectos universitarios e independientes)</span>
+			<span class="job-date">2019 – 2020</span>
+		</div>
+		<div class="job-place">Bibliotecas Públicas de Miranda · Parroquia San Pedro Apóstol</div>
+		<ul>
+			<li>Desarrollo integral de aplicaciones web con PHP, MySQL, HTML5 y CSS3.</li>
+			<li>Implementación de interfaces modernas con JavaScript.</li>
+		</ul>
+	</div>
+
+	<div class="job">
+		<div class="job-head">
+			<span class="job-title">Asistente Administrativo Informático</span>
+			<span class="job-date">2018 – 2019</span>
+		</div>
+		<div class="job-place">Instituto Médico Quirúrgico Ribas</div>
+		<ul>
+			<li>Mantenimiento y reparación de computadoras, impresoras y servidores.</li>
+			<li>Asistente administrativo del departamento de admisión.</li>
+		</ul>
+	</div>
+
+	<div class="job">
+		<div class="job-head">
+			<span class="job-title">Técnico de Soporte y Mantenimiento</span>
+			<span class="job-date">2017 – 2019</span>
+		</div>
+		<div class="job-place">U.E. Colegio "Nuestro Esfuerzo" · Hospital "Victorino Santaella"</div>
+		<ul>
+			<li>Servicio técnico preventivo y correctivo de hardware y software en entornos de alta demanda.</li>
+		</ul>
+	</div>
+
+	<div class="columns">
+		<section>
+			<h2>Formación académica</h2>
+			<ul class="plain">
+				<li><strong>Ingeniería en Informática</strong> (2021)<br>Universidad Politécnica Territorial de los Altos Mirandinos "Cecilio Acosta"</li>
+				<li><strong>Técnico Superior en Informática</strong> (2018)<br>Universidad Politécnica Territorial de los Altos Mirandinos "Cecilio Acosta"</li>
+			</ul>
+		</section>
+		<section>
+			<h2>Cursos y certificaciones</h2>
+			<ul class="plain">
+				<li><strong>Curso de iniciación al desarrollo con IA</strong> · Big School (2025)</li>
+				<li><strong>Técnico en Electrónica</strong> · Instituto Simón Bolívar (2016)</li>
+				<li><strong>Soporte Técnico y Reparación de Micro</strong> · Instituto Simón Bolívar (2013)</li>
+			</ul>
+			<h2>Idiomas</h2>
+			<ul class="plain">
+				<li><strong>Español:</strong> nativo</li>
+				<li><strong>Inglés:</strong> B1 (intermedio)</li>
+			</ul>
+		</section>
+	</div>
+</body>
+</html>

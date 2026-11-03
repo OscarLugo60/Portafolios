@@ -13,6 +13,7 @@ import Experience from '../components/Experience.astro';
 import Project from '../components/Project.astro';
 import Tecnologias from '../components/Tecnologias.astro';
 import Contact from '../components/Contact.astro';
+import Education from '../components/Education.astro';
 ---
 
 <Layout
@@ -26,20 +27,25 @@ import Contact from '../components/Contact.astro';
 				<h2 class="lg:w-full text-[#04BFAD] text-lg md:text-2xl flex justify-left">Desarrollador Full Stack</h2>
 
 				<nav class="flex flex-wrap gap-6 mt-8 max-w-60">
-					<EMail href="#">
+					<EMail aria-label="Enviar un correo">
 						<MailIcon class="size-6" />
 						<Mail />
 					</EMail>
-					<SocialPill href="https://www.linkedin.com/in/oscar-lugo-a03924190/" target="_blank">
+					<SocialPill href="https://www.linkedin.com/in/oscar-lugo-6550943b3" aria-label="LinkedIn">
 						<LinkedIn class="size-6" />
 					</SocialPill>
-					<SocialPill href="https://github.com/OscarLugo60" target="_blank">
+					<SocialPill href="https://github.com/OscarLugo60" aria-label="GitHub">
 						<GitHub class="size-6 text-[#04BFAD]" />
 					</SocialPill>
-					<SocialPill href="https://wa.me/584141111521" target="_blank">
+					<SocialPill href="https://wa.me/584141111521" aria-label="WhatsApp">
 						<Whatsapp class="size-6" />
 					</SocialPill>
 				</nav>
+
+				<div class="flex flex-wrap gap-4 mt-8">
+					<a href="/#projects" class="px-5 py-2.5 text-sm md:text-base font-medium text-white bg-[#027373] border border-[#04BF9D] rounded-lg hover:bg-[#172026] hover:text-[#04BF9D] transition">Ver proyectos</a>
+					<a href="/cv/Oscar-Lugo-CV.pdf" download class="px-5 py-2.5 text-sm md:text-base font-medium text-[#5FCDD9] bg-[#172026]/80 border border-[#04BF9D] rounded-lg hover:bg-[#027373] hover:text-white transition">Descargar CV</a>
+				</div>
 			</section>
 		</div>
 		<div class="flex flex-col justify-center items-center gap-y-5 md:gap-y-10 mt-10 md:mt-28">
@@ -68,9 +74,15 @@ import Contact from '../components/Contact.astro';
 		<div class="flex flex-col gap-x-20 justify-center items-center md:ml-12 my-28">
 			<h1 class="text-2xl sm:text-5xl md:text-7xl text-[#5FCDD9] font-semibold">Tecnologías</h1>
 			<div class="flex flex-col px-5 md:px-0 md:w-4/5">
-				<section class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-5 w-full mt-6 md:mt-16 py-5 p-5 md:p-12 border border-[#04BF9D] rounded-lg shadow-lg hover:shadow-md shadow-[#04BF9D] transition">
+				<section class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full mt-6 md:mt-16 p-5 md:p-12 border border-[#04BF9D] rounded-lg shadow-lg hover:shadow-md shadow-[#04BF9D] transition">
 					<Tecnologias />
 				</section>
+			</div>
+		</div>
+		<div id="education" class="flex flex-col gap-y-10 justify-center items-center px-5 md:px-0 mb-28">
+			<h1 class="text-2xl sm:text-5xl md:text-7xl text-[#5FCDD9] font-semibold text-center">Formación</h1>
+			<div class="w-full md:w-4/5">
+				<Education />
 			</div>
 		</div>
 		<div id="contact" class="flex flex-col justify-center items-center gap-y-6 px-5 md:pl-28 pt-7 md:pt-10 pb-5 min-w-full">

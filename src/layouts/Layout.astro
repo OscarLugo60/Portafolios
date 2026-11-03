@@ -37,11 +37,6 @@ import { ViewTransitions } from 'astro:transitions';
 		<Header />
 		<slot />
 		<Footer />
-		<script>
-			import { initFlowbite } from 'flowbite';
-			// Flowbite se inicializa solo al cargar; tras una View Transition hay que reiniciarlo
-			document.addEventListener('astro:after-swap', () => initFlowbite());
-		</script>
 	</body>
 </html>
 <style is:global>
