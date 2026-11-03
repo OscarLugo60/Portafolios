@@ -22,8 +22,6 @@ interface Props{
     github?: string
 }
 const { id, title, description, link, img, github, tech } = Astro.props
-
-var i = 0;
 ---
 
 <div class="absolute w-4 h-4 bg-[#027373] rounded-full mt-1.5 -start-[9px] border border-[#027373]">
@@ -82,24 +80,21 @@ var i = 0;
             <div class="p-2 md:p-3 space-y-4 flex flex-col">
                 
             <!-- Carousel wrapper -->
-                <div id="indicators-carousel" class="relative w-full" data-carousel="static">
+                <div id={`indicators-carousel-${id}`} class="relative w-full" data-carousel="static">
                     <!-- Carousel wrapper -->
                     <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-                        <!-- Item 1 -->
-                        {img.map((item) => (
+                        {img.map((item, index) => (
                                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                    <img src={item} class="m-x-auto" alt="...">
+                                    <img src={`/${item}`} class="mx-auto" alt={`${title} - captura ${index + 1}`}>
                                 </div>
                             )
                         )}
                     </div>
                     <!-- Slider indicators -->
                     <div class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2">
-                        <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
-                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
-                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
-                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
-                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 5" data-carousel-slide-to="4"></button>
+                        {img.map((_, index) => (
+                            <button type="button" class="w-3 h-3 rounded-full" aria-current={index === 0 ? 'true' : 'false'} aria-label={`Imagen ${index + 1}`} data-carousel-slide-to={index}></button>
+                        ))}
                     </div>
                     <!-- Slider controls -->
                     <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>

@@ -12,31 +12,35 @@ const { frontmatter } = Astro.props;
 		<meta charset="UTF-8" />
 		<meta name="description" content={frontmatter.description} />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/img/Avatar.webp" />
+		<link rel="icon" type="image/webp" href="/img/Avatar.webp" />
 		<meta name="generator" content={Astro.generator} />
 		<link rel="sitemap" href="/sitemap-index.xml" />
 		<title>{frontmatter.title}</title>
 		<ViewTransitions />
-	</head>
-	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-4VQKQL0E1N"></script>
-	<script type="text/javascript">
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-4VQKQL0E1N"></script>
+		<script type="text/javascript">
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
 
-	gtag('config', 'G-4VQKQL0E1N');
-	</script>
+		gtag('config', 'G-4VQKQL0E1N');
+		</script>
+	</head>
 	<body>
 		<Header />
-		<div class="flex flex-col gap-y-10 justify-center items-center px-5 md:px-0 my-20 md:my-28 min-w-2/3 w-3/4 text-[#5FCDD9] border border-gray-600 rounded-lg py-5 ml-5 shadow-lg shadow-gray-600">
+		<div class="flex flex-col gap-y-10 justify-center items-center px-5 md:px-0 my-20 md:my-28 w-3/4 text-[#5FCDD9] border border-gray-600 rounded-lg py-5 ml-5 shadow-lg shadow-gray-600">
             <img transition:name={frontmatter.slug} class="aspect-video" src={frontmatter.image.url} alt={frontmatter.image.alt}>
             <h1 class="text-3xl text-[#5FCDD9] font-semibold">{frontmatter.title}</h1>
             <slot />
         </div>
         <Tags />
 		<Footer />
-		<script src="../../node_modules/flowbite/dist/flowbite.min.js"></script>
+		<script>
+			import { initFlowbite } from 'flowbite';
+			// Flowbite se inicializa solo al cargar; tras una View Transition hay que reiniciarlo
+			document.addEventListener('astro:after-swap', () => initFlowbite());
+		</script>
 	</body>
 </html>
 <style is:global>
