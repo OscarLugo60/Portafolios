@@ -1,1 +1,5 @@
-<img src="/img/Avatar.webp" alt="Oscar Lugo" class="w-3/5 md:w-1/3 md:mt-20 rounded-full shadow-xl shadow-[#04BF9D]">
+---
+import { Image } from 'astro:assets';
+import avatar from '../assets/avatar.webp';
+---
+<Image src={avatar} alt="Foto de Oscar Lugo" widths={[300, 600]} sizes="(min-width: 768px) 33vw, 60vw" loading="lazy" class="w-3/5 md:w-1/3 h-auto md:mt-20 rounded-full shadow-xl shadow-[#04BF9D]" />

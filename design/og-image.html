@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Imagen para compartir</title>
+<style>
+	html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+	body {
+		font-family: "Segoe UI", system-ui, sans-serif;
+		background: #172026;
+		position: relative;
+	}
+	.frame {
+		position: absolute; inset: 24px;
+		border: 3px solid #04BF9D; border-radius: 24px;
+	}
+	.circle { position: absolute; border-radius: 50%; }
+	.c1 { width: 440px; height: 440px; right: -60px; top: -120px; background: #027373; opacity: .3; }
+	.c2 { width: 300px; height: 300px; right: 120px; bottom: -150px; background: #04BFAD; opacity: .14; }
+	.avatar {
+		position: absolute; right: 110px; top: 150px;
+		width: 300px; height: 300px; border-radius: 50%;
+		object-fit: cover; background: #027373; box-shadow: 0 0 40px #04BF9D88;
+	}
+	.text { position: absolute; left: 80px; top: 150px; width: 640px; }
+	h1 { margin: 0; font-size: 84px; color: #5FCDD9; font-weight: 600; }
+	.role { margin: 10px 0 34px; font-size: 40px; color: #04BFAD; }
+	.stack { font-size: 26px; color: #CBD5E1; line-height: 1.5; }
+	.url { position: absolute; left: 80px; bottom: 70px; font-size: 26px; color: #CBD5E1; }
+</style>
+</head>
+<body>
+	<div class="circle c1"></div>
+	<div class="circle c2"></div>
+	<div class="frame"></div>
+	<div class="text">
+		<h1>Oscar Lugo</h1>
+		<div class="role">Desarrollador Full Stack</div>
+		<div class="stack">Python · Django · PostgreSQL<br>Astro · Tailwind · Infraestructura</div>
+	</div>
+	<img class="avatar" src="../public/img/Avatar.webp" alt="">
+	<div class="url">oscarlugo.codejod.com</div>
+</body>
+</html>

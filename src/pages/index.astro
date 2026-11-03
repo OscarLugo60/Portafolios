@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import codingLaptop from '../assets/coding-laptop.webp';
 import LinkedIn from '../icons/LinkedIn.astro';
 import GitHub from '../icons/GitHub.astro';
 import Whatsapp from '../icons/Whatsapp.astro';
@@ -14,17 +16,33 @@ import Project from '../components/Project.astro';
 import Tecnologias from '../components/Tecnologias.astro';
 import Contact from '../components/Contact.astro';
 import Education from '../components/Education.astro';
+
+const PERSON_SCHEMA = {
+	'@context': 'https://schema.org',
+	'@type': 'Person',
+	name: 'Oscar Lugo',
+	jobTitle: 'Desarrollador Full Stack',
+	url: 'https://oscarlugo.codejod.com',
+	image: 'https://oscarlugo.codejod.com/img/Avatar.webp',
+	email: 'mailto:oscarlugo60@gmail.com',
+	worksFor: { '@type': 'Organization', name: 'Centro Médico Docente El Paso' },
+	alumniOf: { '@type': 'CollegeOrUniversity', name: 'Universidad Politécnica Territorial de los Altos Mirandinos "Cecilio Acosta"' },
+	knowsAbout: ['Python', 'Django', 'Django REST Framework', 'JavaScript', 'Astro', 'Tailwind', 'PostgreSQL', 'MySQL', 'Windows Server', 'Active Directory'],
+	sameAs: ['https://www.linkedin.com/in/oscar-lugo-6550943b3', 'https://github.com/OscarLugo60'],
+}
 ---
 
 <Layout
 	title="Portafolio de Oscar Lugo - Desarrollador Full Stack"
-	description="Oscar Lugo, desarrollador Full Stack: backend con Python y Django, frontend con Astro y Tailwind, y bases de datos PostgreSQL"	
+	description="Oscar Lugo, desarrollador Full Stack: backend con Python y Django, frontend con Astro y Tailwind, y bases de datos PostgreSQL"
+	schema={PERSON_SCHEMA}
 >
+	<link slot="head" rel="preload" as="image" href="/img/background-laptop2.webp" fetchpriority="high" />
 	<main>
 		<div id="index" class="flex flex-col justify-center items-center h-screen min-w-full px-4">
 			<section class="md:w-6/12 py-10">
 				<h1 class="lg:w-full text-[#5FCDD9] text-4xl md:text-6xl font-semibold flex justify-left pb-4">Oscar Lugo</h1>
-				<h2 class="lg:w-full text-[#04BFAD] text-lg md:text-2xl flex justify-left">Desarrollador Full Stack</h2>
+				<p class="lg:w-full text-[#04BFAD] text-lg md:text-2xl flex justify-left">Desarrollador Full Stack</p>
 
 				<nav class="flex flex-wrap gap-6 mt-8 max-w-60">
 					<EMail aria-label="Enviar un correo">
@@ -49,30 +67,30 @@ import Education from '../components/Education.astro';
 			</section>
 		</div>
 		<div class="flex flex-col justify-center items-center gap-y-5 md:gap-y-10 mt-10 md:mt-28">
-			<h1 class="text-2xl md:text-7xl text-[#5FCDD9] font-semibold">Experiencia</h1>
+			<h2 class="text-2xl md:text-7xl text-[#5FCDD9] font-semibold">Experiencia</h2>
 			<section class="flex flex-col justify-center md:w-5/12 px-5 md:px-0 gap-y-5">
 				<Experience />
 			</section>
 		</div>
 		
 		<div id="projects" class="flex flex-col gap-y-10 justify-center items-center px-5 md:px-0 my-10 md:my-28">
-			<h1 class="text-2xl md:text-7xl text-[#5FCDD9] font-semibold">Proyectos</h1>
+			<h2 class="text-2xl md:text-7xl text-[#5FCDD9] font-semibold">Proyectos</h2>
 			<section class="flex">
-				<img class="w-2/5 max-h-96 hidden md:block" src="/img/coding laptop.webp" alt="Projects">
+				<Image class="w-2/5 h-auto max-h-96 object-contain hidden md:block" src={codingLaptop} alt="" widths={[480, 960]} sizes="40vw" loading="lazy" />
 				<div class="w-full flex flex-col gap-y-6">
 					<Project />
 				</div>
 			</section>
 		</div>
 		<div id="about" class="flex flex-col items-center justify-center">
-			<h1 class="text-2xl md:text-7xl text-[#5FCDD9] font-semibold">Sobre mí</h1>
+			<h2 class="text-2xl md:text-7xl text-[#5FCDD9] font-semibold">Sobre mí</h2>
 			<section class="flex flex-col md:flex-row items-center justify-center gap-10">
 				<About />
 				<Photo />
 			</section>
 		</div>
 		<div class="flex flex-col gap-x-20 justify-center items-center md:ml-12 my-28">
-			<h1 class="text-2xl sm:text-5xl md:text-7xl text-[#5FCDD9] font-semibold">Tecnologías</h1>
+			<h2 class="text-2xl sm:text-5xl md:text-7xl text-[#5FCDD9] font-semibold">Tecnologías</h2>
 			<div class="flex flex-col px-5 md:px-0 md:w-4/5">
 				<section class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full mt-6 md:mt-16 p-5 md:p-12 border border-[#04BF9D] rounded-lg shadow-lg hover:shadow-md shadow-[#04BF9D] transition">
 					<Tecnologias />
@@ -80,14 +98,14 @@ import Education from '../components/Education.astro';
 			</div>
 		</div>
 		<div id="education" class="flex flex-col gap-y-10 justify-center items-center px-5 md:px-0 mb-28">
-			<h1 class="text-2xl sm:text-5xl md:text-7xl text-[#5FCDD9] font-semibold text-center">Formación</h1>
+			<h2 class="text-2xl sm:text-5xl md:text-7xl text-[#5FCDD9] font-semibold text-center">Formación</h2>
 			<div class="w-full md:w-4/5">
 				<Education />
 			</div>
 		</div>
 		<div id="contact" class="flex flex-col justify-center items-center gap-y-6 px-5 md:pl-28 pt-7 md:pt-10 pb-5 min-w-full">
 			<div class="flex flex-col">
-				<h1 class="text-2xl sm:text-5xl md:text-7xl text-[#5FCDD9] font-semibold">Contacto</h1>
+				<h2 class="text-2xl sm:text-5xl md:text-7xl text-[#5FCDD9] font-semibold">Contacto</h2>
 			</div>
 			<Contact />
 		</div>

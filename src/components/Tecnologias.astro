@@ -66,7 +66,7 @@ const GROUPS = [
 
 {GROUPS.map(group => (
     <div class="flex flex-col gap-4">
-        <h2 class="text-lg md:text-xl text-[#5FCDD9] font-semibold">{group.title}</h2>
+        <h3 class="text-lg md:text-xl text-[#5FCDD9] font-semibold">{group.title}</h3>
         <ul class="flex flex-wrap gap-4 list-none">
             {group.items.map(({ name, icon: Icon, size = 'size-12' }) => (
                 Icon

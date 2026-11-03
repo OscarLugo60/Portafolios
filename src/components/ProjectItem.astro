@@ -16,13 +16,13 @@ interface Props{
     id: number
     title: string
     description: string
-    link?: string
+    links?: { label: string, url: string }[]
     img?: string[]
     tech?: string[]
     github?: string
 }
-const { id, title, description, link, img = [], github, tech = [] } = Astro.props
-const hasDetails = img.length > 0 || tech.length > 0 || link || github
+const { id, title, description, links = [], img = [], github, tech = [] } = Astro.props
+const hasDetails = img.length > 0 || tech.length > 0 || links.length > 0 || github
 
 const TECH_ICONS = {
     Python: PythonIcon,
@@ -73,6 +73,8 @@ const TECH_ICONS = {
                             src={`/${item}`}
                             alt={`${title} - captura ${index + 1}`}
                             loading="lazy"
+                            width="960"
+                            height="720"
                             class:list={['absolute inset-0 w-full h-full object-contain transition-opacity duration-500', index === 0 ? 'opacity-100' : 'opacity-0']}
                             data-carousel-item
                         >
@@ -117,14 +119,14 @@ const TECH_ICONS = {
         )}
     </div>
 
-    {(link || github) && (
-        <div class="flex items-center gap-3 p-3 border-t border-gray-600">
-            {link && (
-                <a href={link} target="_blank" rel="noopener" class="text-white bg-[#027373] hover:bg-[#04BFAD] font-medium rounded-lg text-sm px-5 py-2 transition flex items-center justify-center gap-3">
+    {(links.length > 0 || github) && (
+        <div class="flex flex-wrap items-center gap-3 p-3 border-t border-gray-600">
+            {links.map(item => (
+                <a href={item.url} target="_blank" rel="noopener" class="text-white bg-[#027373] hover:bg-[#04BFAD] font-medium rounded-lg text-sm px-5 py-2 transition flex items-center justify-center gap-3">
                     <WebIcon class="size-6 text-[#5FCDD9]" />
-                    Visitar sitio
+                    {item.label}
                 </a>
-            )}
+            ))}
             {github && (
                 <a href={github} target="_blank" rel="noopener" class="text-white bg-[#027373] hover:bg-[#04BF9D] font-medium rounded-lg text-sm px-5 py-2 transition flex items-center justify-center gap-3">
                     <GitHub class="size-6 text-[#5FCDD9]"/>

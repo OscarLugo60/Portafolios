@@ -4,10 +4,21 @@ import Tags from "../components/Tags.astro";
 import { formatDate } from "../utils/posts";
 
 const { frontmatter, slug } = Astro.props;
+
+const ARTICLE_SCHEMA = {
+	'@context': 'https://schema.org',
+	'@type': 'BlogPosting',
+	headline: frontmatter.title,
+	description: frontmatter.description,
+	datePublished: frontmatter.pubDate.toISOString(),
+	author: { '@type': 'Person', name: frontmatter.author, url: 'https://oscarlugo.codejod.com' },
+	inLanguage: 'es',
+	url: new URL(`/posts/${slug}/`, Astro.site).href,
+}
 ---
-<Layout title={`${frontmatter.title} | Oscar Lugo`} description={frontmatter.description}>
+<Layout title={`${frontmatter.title} | Oscar Lugo`} description={frontmatter.description} type="article" schema={ARTICLE_SCHEMA}>
 	<article class="post flex flex-col gap-y-10 justify-center items-center px-5 md:px-0 my-24 md:my-28 w-11/12 md:w-3/4 text-[#5FCDD9] border border-gray-600 rounded-lg py-5 mx-auto md:ml-5 shadow-lg shadow-gray-600">
-		<img transition:name={slug} class="aspect-video w-11/12 md:w-3/4 rounded" src={frontmatter.image.url} alt={frontmatter.image.alt}>
+		<img transition:name={slug} class="aspect-video w-11/12 md:w-3/4 rounded" src={frontmatter.image.url} alt={frontmatter.image.alt} width="1280" height="720" fetchpriority="high">
 		<header class="flex flex-col items-center gap-2 text-center w-11/12">
 			<h1 class="text-2xl md:text-3xl text-[#5FCDD9] font-semibold text-balance">{frontmatter.title}</h1>
 			<time class="text-sm text-gray-400" datetime={frontmatter.pubDate.toISOString()}>{formatDate(frontmatter.pubDate)}</time>

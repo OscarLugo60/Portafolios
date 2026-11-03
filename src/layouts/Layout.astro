@@ -2,9 +2,15 @@
 interface Props {
 	description: string;
 	title: string;
+	image?: string;
+	type?: 'website' | 'article';
+	schema?: Record<string, unknown>;
 }
 
-const {description, title } = Astro.props;
+const { description, title, image = '/img/og-image.png', type = 'website', schema } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const imageURL = new URL(image, Astro.site);
 
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -17,11 +23,32 @@ import { ViewTransitions } from 'astro:transitions';
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#172026" />
 		<link rel="icon" type="image/webp" href="/img/Avatar.webp" />
 		<meta name="generator" content={Astro.generator} />
+		<link rel="canonical" href={canonicalURL} />
 		<link rel="sitemap" href="/sitemap-index.xml" />
+		<link rel="alternate" type="application/rss+xml" title="Oscar Lugo | Blog" href="/rss.xml" />
 		<title>{title}</title>
+
+		<!-- Vista previa al compartir en redes sociales y mensajería -->
+		<meta property="og:type" content={type} />
+		<meta property="og:site_name" content="Oscar Lugo" />
+		<meta property="og:locale" content="es_VE" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={imageURL} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={imageURL} />
+
+		<slot name="head" />
+		{schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 		<ViewTransitions />
 		<!-- Google tag (gtag.js) -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-4VQKQL0E1N"></script>

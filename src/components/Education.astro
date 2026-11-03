@@ -26,33 +26,33 @@ const LANGUAGES = [
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
     <section class="flex flex-col gap-4">
-        <h2 class="text-xl text-[#5FCDD9] font-semibold">Formación académica</h2>
+        <h3 class="text-xl text-[#5FCDD9] font-semibold">Formación académica</h3>
         <ul class="flex flex-col gap-4 list-none">
             {EDUCATION.map(item => (
                 <li>
-                    <h3 class="text-base font-semibold text-[#04BFAD]">{item.title}</h3>
+                    <h4 class="text-base font-semibold text-[#04BFAD]">{item.title}</h4>
                     <p class="w-full text-sm text-gray-400">{item.place} · {item.year}</p>
                 </li>
             ))}
         </ul>
     </section>
     <section class="flex flex-col gap-4">
-        <h2 class="text-xl text-[#5FCDD9] font-semibold">Cursos y certificaciones</h2>
+        <h3 class="text-xl text-[#5FCDD9] font-semibold">Cursos y certificaciones</h3>
         <ul class="flex flex-col gap-4 list-none">
             {COURSES.map(item => (
                 <li>
-                    <h3 class="text-base font-semibold text-[#04BFAD]">{item.title}</h3>
+                    <h4 class="text-base font-semibold text-[#04BFAD]">{item.title}</h4>
                     <p class="w-full text-sm text-gray-400">{item.place} · {item.year}</p>
                 </li>
             ))}
         </ul>
     </section>
     <section class="flex flex-col gap-4">
-        <h2 class="text-xl text-[#5FCDD9] font-semibold">Idiomas</h2>
+        <h3 class="text-xl text-[#5FCDD9] font-semibold">Idiomas</h3>
         <ul class="flex flex-col gap-4 list-none">
             {LANGUAGES.map(item => (
                 <li>
-                    <h3 class="text-base font-semibold text-[#04BFAD]">{item.name}</h3>
+                    <h4 class="text-base font-semibold text-[#04BFAD]">{item.name}</h4>
                     <p class="w-full text-sm text-gray-400">{item.level}</p>
                 </li>
             ))}

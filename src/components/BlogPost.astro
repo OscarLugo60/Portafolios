@@ -5,7 +5,7 @@ const { title, url, image, description, pubDate, slug } = Astro.props
 ---
 
 <article class="border border-[#027373] relative rounded-lg p-2 md:p-4 w-5/6 flex md:flex-row flex-col justify-center items-center gap-5">
-    <img transition:name={slug} class="md:w-2/5 aspect-video md:aspect-auto rounded" src={image.url} alt={image.alt}>
+    <img transition:name={slug} class="md:w-2/5 aspect-video md:aspect-auto rounded" src={image.url} alt={image.alt} width="1280" height="720" loading="lazy">
     <div class="flex flex-col gap-y-2 h-full justify-between items-center w-full md:w-3/5">
         <a href={url}>
             <h2 class="text-md md:text-xl text-[#5FCDD9] font-semibold text-pretty">{title}</h2>

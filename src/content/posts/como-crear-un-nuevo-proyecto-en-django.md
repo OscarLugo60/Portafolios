@@ -43,9 +43,10 @@ Con estos pasos ya podemos ejecutar nuestro proyecto para comprobar que la insta
 python manage.py runserver
 ```
 ### **Otros paquetes recomendados:**
-* ***django-cors-headers***: permite configurar los CORS para que las API's que creemos puedan ser accedidas por el front.
-* ***djangorestframework***: permite usar django como servicio REST.
-* ***psycopg2***: permite trabajar con bases de datos PostgreSQL.
+* ***django-environ***: permite leer la configuración sensible desde variables de entorno o un archivo `.env`.
+* ***django-cors-headers***: permite configurar los CORS para que las API que creemos puedan ser accedidas por el front.
+* ***djangorestframework***: permite usar Django como servicio REST.
+* ***psycopg***: permite trabajar con bases de datos PostgreSQL (se instala con `pip install "psycopg[binary]"`).
 * ***pillow***: permite procesar imágenes.
 
 El siguiente paso es dividir el archivo settings, con el objetivo de que las configuraciones se puedan cambiar en la etapa de desarrollo y en la etapa de despliegue y sean más fáciles de manipular.
@@ -55,53 +56,47 @@ Debemos crear una carpeta llamada **settings** y dentro de ella crearemos 3 arch
 * ***local.py:*** se colocarán las configuraciones de base de datos y otras.
 * ***prod.py:*** se colocarán las mismas configuraciones que contiene el archivo **local.py** pero con los datos que se le implementarán en el servidor donde se ejecute.
 
-Luego de cambiar estos datos, debemos editar el archivo **manage.py** para cambiar la ruta al nuevo archivo **settings**, el cual es **local.py** o **prod.py** según el entorno en el que se encuentre nuestro proyecto.
+Luego de crear estos archivos, debemos editar **manage.py** (y también **wsgi.py** y **asgi.py**) para que apunten al nuevo archivo de settings según el entorno:
+```python
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'nombre_proyecto.settings.local')
+```
+En el servidor de producción usaremos `nombre_proyecto.settings.prod`.
+
 ## Aumentar la seguridad de los settings
 
-Al compartir un proyecto en github es ideal resguardar información que colocamos en los settings que es de vital importancia como lo es la **secret key** que se genera al crear el **proyecto de Django** y los datos de acceso a nuestra base de datos.
+Al compartir un proyecto en GitHub es importante no publicar información sensible que colocamos en los settings, como la **secret key** que se genera al crear el **proyecto de Django** y los datos de acceso a nuestra base de datos.
 
-Por ende, es recomendable crear un archivo json privado y desde el **código de python** acceder a esa información importante. 
+La práctica recomendada es guardar esos datos en **variables de entorno**. En desarrollo es más cómodo tenerlas en un archivo **.env** en la raíz del proyecto, que leeremos con **django-environ**:
+```bash
+pip install django-environ
+```
+El archivo **.env** tendrá la siguiente estructura:
+```bash
+SECRET_KEY=tu_secret_key
+DEBUG=True
+DB_NAME=nombredb
+DB_USER=nombreuser
+DB_PASSWORD=password
+```
+Es muy importante agregar **.env** al archivo **.gitignore** para que nunca se suba al repositorio. Si quieres que otras personas sepan qué variables necesita el proyecto, puedes subir un archivo **.env.example** con los mismos nombres pero sin los valores reales.
 
-Primero crearemos el archivo, yo le colocaré de nombre **secret.json**, estará en la carpeta raíz de mi proyecto y tendrá la siguiente estructura:
-```json
-{
-    "FILE_NAME": "secret.json",
-    "SECRET_KEY": "SECRET_KEY",
-    "DB_NAME": "DB_NAME",
-    "DB_USER": "DB_USER",
-    "DB_PASSWORD": "DB_PASSWORD"
-}
-```
-Luego en el **archivo base.py** deberemos importar:
+Luego en el **archivo base.py** definimos **BASE_DIR** con **pathlib**, que ya viene incluido en Python. Como ahora settings está dentro de una carpeta, debemos subir tres niveles para llegar a la raíz del proyecto:
 ```python
-from django.core.exceptions import ImproperlyConfigured
-import json
-from unipath import Path
-```
-Usaremos **unipath** para cambiar la forma en la que funciona **BASE_DIR** para acceder más fácilmente al archivo **secret** por lo que eso será lo primero que haremos:
-```python
-BASE_DIR = Path(__file__).ancestor(3)
-```
-Ahora accederemos al archivo secret de la siguiente manera:
-```python
-with open(BASE_DIR.child('secret.json')) as f:
-    secrets = json.loads(f.read())
-```
-Luego creamos una función que obtenga las variables que necesitamos dentro de ese archivo:
-```python
-def get_secret(secret_name, secrets=secrets):
-    try:
-        return secrets[secret_name]
-    except KeyError:
-        msg = "la variable %s no existe" % secret_name
-        raise ImproperlyConfigured(msg)
-```
-Esta función recibe como primer parámetro un **"secret_name"** que es el nombre de la variable que necesitamos encontrar dentro del archivo secret, y como segundo parámetro recibe el contenido del archivo que obtuvimos en la instrucción anterior, luego intenta obtener el valor de la variable que estamos solicitando, en caso de que no exista dicha variable retornará un error con el mensaje: ***"la variable 'nombre_variable' no existe"***.
+from pathlib import Path
+import environ
 
-De esta manera, ya podemos obtener los datos que necesitamos, como lo es la secret_key que genera django:
-```python
-SECRET_KEY = get_secret('SECRET_KEY')
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+env = environ.Env()
+environ.Env.read_env(BASE_DIR / '.env')
 ```
+**read_env** carga las variables del archivo **.env** si existe. En producción podemos definir las variables directamente en el servidor y el código seguirá funcionando igual.
+
+De esta manera, ya podemos obtener los datos que necesitamos, como la secret key que genera Django:
+```python
+SECRET_KEY = env('SECRET_KEY')
+```
+Si la variable no existe, **django-environ** lanza un error **ImproperlyConfigured** que indica cuál falta, así que no necesitamos escribir esa validación nosotros.
 
 ## Organizar el resto del archivo base.py
 
@@ -134,7 +129,7 @@ En la configuración de los templates solo necesitaremos colocar la dirección d
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR.child('templates')],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -147,7 +142,7 @@ TEMPLATES = [
     },
 ]
 ```
-Lo cual logramos usando la variable **BASE_DIR**, accedemos a su hijo y a la carpeta que creamos con nombre **templates**, la cual coloqué a la misma altura del archivo **manage.py**.
+Lo cual logramos usando la variable **BASE_DIR** y el operador **/** de pathlib para apuntar a la carpeta que creamos con nombre **templates**, la cual coloqué a la misma altura del archivo **manage.py**.
 
 ### Últimas consideraciones en el archivo base.py
 
@@ -166,7 +161,7 @@ from .base import *
 ```
 Luego colocaremos la configuración que activa o desactiva el modo debug, el cual funciona para que los errores se nos muestren de mejor manera para solucionarlos más rápidamente, sin embargo, esta configuración en etapa de producción no se suele activar, porque de esta manera suelen mostrarse partes de nuestro código, lo cual no es seguro para nuestros sistemas.
 ```python
-DEBUG = True
+DEBUG = env.bool('DEBUG', default=False)
 ```
 La siguiente configuración es la variable **ALLOWED_HOSTS**, que son los hosts que se permiten conectarse a nuestro proyecto:
 ```python
@@ -179,22 +174,22 @@ Ahora colocaremos la configuración de conexión a la base de datos:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': get_secret('DB_NAME'),
-        'USER': get_secret('DB_USER'),
-        'PASSWORD': get_secret('DB_PASSWORD'),
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
         'HOST': 'localhost',
         'PORT': '5432',
     }
 }
 ```
-En primer lugar, modificaremos el **ENGINE** en el cual, como trabajaremos con **PostgreSQL** utilizando **psycopg2**, los datos de **NAME, USER, PASSWORD** las extraeremos de nuestro archivo secrets tal como hicimos con la **SECRET_KEY en nuestro archivo base.py**, desde el cual estamos importando la función que obtiene los datos de dicho archivo.
+En primer lugar, modificaremos el **ENGINE**: como trabajaremos con **PostgreSQL** usamos `django.db.backends.postgresql`, que funciona con **psycopg**. Los datos de **NAME, USER y PASSWORD** los leemos de las variables de entorno con **env**, igual que hicimos con la **SECRET_KEY** en **base.py**; el objeto **env** está disponible porque importamos todo desde ese archivo.
 
 Por último, colocaremos la configuración de los archivos estáticos y multimedia, la cual colocaremos de la siguiente manera en modo de desarrollo en producción cambiará según cómo se haga el despliegue:
 ```python
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR.child('staticfiles')
-STATICFILES_DIRS = [BASE_DIR.child('static')]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR.child('media')
+MEDIA_ROOT = BASE_DIR / 'media'
 ```
