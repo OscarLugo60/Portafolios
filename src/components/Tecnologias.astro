@@ -14,6 +14,11 @@ import NginxIcon from "../icons/NginxIcon.astro";
 import Bootstrap from "../icons/Bootstrap.astro";
 import AstroIcon from "../icons/AstroIcon.astro";
 import TailwindIcon from "../icons/TailwindIcon.astro";
+import DRFIcon from "../icons/DRFIcon.astro";
+import WindowsServerIcon from "../icons/WindowsServerIcon.astro";
+import ActiveDirectoryIcon from "../icons/ActiveDirectoryIcon.astro";
+import DHCPIcon from "../icons/DHCPIcon.astro";
+import ProxyIcon from "../icons/ProxyIcon.astro";
 
 const GROUPS = [
     {
@@ -22,7 +27,7 @@ const GROUPS = [
             { name: 'Python', icon: PythonIcon, size: 'size-14' },
             { name: 'Django', icon: DjangoIcon },
             { name: 'PHP', icon: PHPIcon },
-            { name: 'Django REST Framework' },
+            { name: 'Django REST Framework', icon: DRFIcon, size: 'size-11' },
         ],
     },
     {
@@ -55,10 +60,10 @@ const GROUPS = [
     {
         title: 'Sistemas y redes',
         items: [
-            { name: 'Windows Server' },
-            { name: 'Active Directory' },
-            { name: 'DHCP' },
-            { name: 'Servidor Proxy' },
+            { name: 'Windows Server', icon: WindowsServerIcon, size: 'size-10' },
+            { name: 'Active Directory', icon: ActiveDirectoryIcon, size: 'size-11' },
+            { name: 'DHCP', icon: DHCPIcon, size: 'size-11' },
+            { name: 'Proxy', icon: ProxyIcon, size: 'size-11' },
         ],
     },
 ]
